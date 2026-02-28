@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<!-- ============ META TAGS ============ -->
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Contribuer - TutoFacile</title>
+	<link rel="stylesheet" href="style.css" />
+	
+	<!-- ============ FAVICON (AMPOULE) ============ -->
+	<link rel="icon" type="image/svg+xml" href="favicon.svg">
+	<link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
+	
+	<!-- ============ GOOGLE ADSENSE ============ -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8577889750610248" crossorigin="anonymous"></script>
+	
+	<!-- ============ TRANSLATIONS ============ -->
+	<script>
+		window.translations = {
+			fr: {
+				home: 'Accueil', diy: 'Bricolage', cooking: 'Cuisine', code: 'Code', login: 'Connexion',
+				contribute_title: 'Partager un tutoriel', share: '📝 Partager votre tuto',
+				title: 'Titre du tutoriel', description: 'Description détaillée', category: 'Catégorie',
+				difficulty: 'Niveau de difficulté', time: 'Temps estimé (en minutes)',
+				submit: 'Partager mon tuto'
+			},
+			en: {
+				home: 'Home', diy: 'DIY', cooking: 'Cooking', code: 'Code', login: 'Login',
+				contribute_title: 'Share a tutorial', share: '📝 Share your tutorial',
+				title: 'Tutorial title', description: 'Detailed description', category: 'Category',
+				difficulty: 'Difficulty level', time: 'Estimated time (minutes)',
+				submit: 'Share my tutorial'
+			}
+		};
+
+		window.t = function(key) {
+			const lang = localStorage.getItem('siteLang') || 'fr';
+			return (window.translations[lang] && window.translations[lang][key]) || key;
+		};
+
+		window.updateAllTranslations = function() {
+			const lang = localStorage.getItem('siteLang') || 'fr';
+			document.documentElement.lang = lang;
+			
+			document.querySelectorAll('[data-i18n]').forEach(el => {
+				const key = el.getAttribute('data-i18n');
+				const text = window.t(key);
+				
+				if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+					el.placeholder = text;
+				} else {
+					// Garder les emojis/enfants et remplacer seulement le texte direct
+					let textNode = Array.from(el.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
+					if(textNode) {
+						textNode.textContent = text;
+					} else if(!el.textContent || !el.children.length) {
+						// Si pas de contenu HTML, remplacer tout
+						el.textContent = text;
+					} else {
+						// Sinon, remplacer le premier nœud texte ou tout le texte
+						let firstText = el.childNodes[0];
+						if(firstText?.nodeType === Node.TEXT_NODE) {
+							firstText.textContent = text;
+						} else {
+							el.textContent = text;
+						}
+					}
+				}
+			});
+
+			document.querySelectorAll('.lang-btn').forEach(btn => {
+				if(btn.getAttribute('data-lang') === lang) {
+					btn.classList.add('active');
+				} else {
+					btn.classList.remove('active');
+				}
+			});
+		};
+
+		// Language button handler
+		function setupLanguageButtons() {
+			document.querySelectorAll('.lang-btn').forEach(btn => {
+				btn.addEventListener('click', function() {
+					const lang = this.getAttribute('data-lang');
+					localStorage.setItem('siteLang', lang);
+					window.updateAllTranslations();
+				});
+			});
+		}
+
+		if(document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', function() {
+				window.updateAllTranslations();
+				setupLanguageButtons();
+			});
+		} else {
+			window.updateAllTranslations();
+			setupLanguageButtons();
+		}
+	</script>
+	
+	<!-- ============ CONTRIBUTION FORM STYLES ============ -->
+	<style>
+		.contribute-box { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 8px; text-align: center; }
+		.contribute-box input, .contribute-box textarea, .contribute-box select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; }
+		.contribute-box button { background: var(--primary); color: white; padding: 12px 24px; border: 0; border-radius: 6px; cursor: pointer; font-weight: 600; }
+	</style>
+</head>
+<body>
+	<!-- ============ HEADER ============ -->
+	<header class="site-header">
+		<div class="container header-inner" style="text-align: center; justify-content: center; display: flex; flex-direction: column; align-items: center; gap: 16px;">
+			<div style="display: flex; align-items: center; gap: 12px; justify-content: center;">
+				<button id="dark-mode-toggle" aria-label="Basculer le mode sombre" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; padding: 0;">🌓</button>
+				<a class="logo" href="/" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
+					<img src="logo.svg" alt="TutoFacile" style="height: 50px; width: auto;">
+				</a>
+			</div>
+			<nav id="main-nav" class="nav" style="justify-content: center; display: flex; flex-direction: row; align-items: center; gap: 24px; flex-wrap: wrap;">
+				<a href="/" data-i18n="home">Accueil</a>
+				<a href="/login.html" data-i18n="login">Connexion</a>
+			</nav>
+			<div class="lang-buttons" style="justify-content: center; display: flex; gap: 8px;">
+				<button class="lang-btn active" data-lang="fr">🇫🇷 FR</button>
+				<button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+			</div>
+		</div>
+	</header>
+
+	<!-- ============ CONTRIBUTION FORM ============ -->
+	<main class="container">
+		<div class="contribute-box">
+			<h1>📝 Contribuez</h1>
+			<!-- Formulaire de contribution -->
+			<form id="contrib-form">
+				<input type="text" id="titre" placeholder="Titre du tuto" required />
+				<textarea id="desc" placeholder="Description courte" required rows="3"></textarea>
+				<select id="cat" required>
+					<option value="Bricolage">Bricolage</option>
+					<option value="Cuisine">Cuisine</option>
+					<option value="Code">Code</option>
+					<option value="Jardinage">Jardinage</option>
+				</select>
+				<select id="diff" required>
+					<option value="Facile">Facile</option>
+					<option value="Moyen">Moyen</option>
+					<option value="Difficile">Difficile</option>
+				</select>
+				<input type="number" id="time" placeholder="Temps (min)" required />
+				<button type="submit">Publier</button>
+			</form>
+		</div>
+	</main>
+
+	<!-- ============ FOOTER ============ -->
+	<footer class="site-footer">
+		<div class="container">
+			<p>&copy; 2023 TutoFacile. Tous droits réservés.</p>
+		</div>
+	</footer>
+
+	<!-- ============ SCRIPTS ============ -->
+	<script src="legal-cookie-banner.js" defer></script>
+	<link rel="stylesheet" href="legal.css" />
+
+	<script defer>
+		// ============ DARK MODE ============
+		const darkModeToggle = document.getElementById('dark-mode-toggle');
+		const htmlElement = document.documentElement;
+		
+		if(darkModeToggle) {
+			const isDarkMode = localStorage.getItem('tutofacile_dark_mode') === 'true';
+			if(isDarkMode) {
+				htmlElement.classList.add('dark-mode');
+				darkModeToggle.textContent = '🌙';
+			} else {
+				darkModeToggle.textContent = '💡';
+			}
+			
+			darkModeToggle.addEventListener('click', () => {
+				const isCurrentlyDark = htmlElement.classList.toggle('dark-mode');
+				localStorage.setItem('tutofacile_dark_mode', isCurrentlyDark);
+				darkModeToggle.textContent = isCurrentlyDark ? '🌙' : '💡';
+			});
+		}
+
+		// ============ LANGUAGE SWITCHER ============
+		const langBtns = document.querySelectorAll('.lang-btn');
+		langBtns.forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				e.preventDefault();
+				const lang = btn.getAttribute('data-lang');
+				localStorage.setItem('siteLang', lang);
+				
+				langBtns.forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				
+				if(window.updateAllTranslations) {
+					updateAllTranslations();
+				}
+			});
+		});
+
+		// ============ CONTRIBUTION LOGIC ============
+		document.getElementById('contrib-form').addEventListener('submit', (e) => {
+			e.preventDefault();
+			const contribs = JSON.parse(localStorage.getItem('tutofacile_contributions') || '[]');
+			contribs.push({
+				id: 'contrib-' + Date.now(),
+				titre: document.getElementById('titre').value,
+				description: document.getElementById('desc').value,
+				categorie: document.getElementById('cat').value,
+				difficulty: document.getElementById('diff').value,
+				time: parseInt(document.getElementById('time').value),
+				image: 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 400 200%27%3E%3Crect fill=%270069f6%27 width=%27400%27 height=%27200%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-size=%2748%27 fill=%27white%27%3E📚%3C/text%3E%3C/svg%3E'
+			});
+			localStorage.setItem('tutofacile_contributions', JSON.stringify(contribs));
+			alert('✅ Tuto ajouté ! Merci de contribuer.');
+			window.location.href = '/';
+		});
+	</script>
+</body>
+</html>

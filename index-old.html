@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<!-- ============ META TAGS & SEO ============ -->
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+	<meta name="description" content="TutoFacile - 50+ tutoriels gratuits et pratiques en bricolage, cuisine, code et jardinage. Apprenez facilement avec nos guides détaillés, créés par la communauté.">
+	<meta name="keywords" content="tutoriels gratuits, guides pratiques, bricolage, cuisine, code, jardinage, apprentissage, DIY">
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="TutoFacile Community">
+	<meta property="og:title" content="TutoFacile - Apprendre Facilement 💡">
+	<meta property="og:description" content="Découvrez 50+ tutoriels gratuits en bricolage, cuisine, code et jardinage. Guides pratiques crées par la communauté.">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://tutofacile.netlify.app/logo.svg">
+	<meta property="og:url" content="https://tutofacile.netlify.app/">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="TutoFacile - Apprendre Facilement">
+	<meta name="twitter:description" content="50+ tutoriels gratuits et pratiques">
+	<title>TutoFacile - Tutoriels Gratuits 💡 | Bricolage, Cuisine, Code, Jardinage</title>
+	<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+	<link rel="canonical" href="https://tutofacile.netlify.app/">
+	<meta name="google-site-verification" content="PKzgUgShp0C5PTZMx9G2vGGN2UyaKDjp_Kt9M4uKzb8" />
+	
+	<!-- ============ FAVICON (AMPOULE) ============ -->
+	<link rel="icon" type="image/svg+xml" href="favicon.svg">
+	<link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
+	<link rel="apple-touch-icon" href="favicon.svg">
+	<meta name="theme-color" content="#0069f6">
+	<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+	<link rel="dns-prefetch" href="https://www.google-analytics.com">
+	<link rel="preconnect" href="https://pagead2.googlesyndication.com">
+	
+	<!-- ============ FONTS & RESOURCES ============ -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="dns-prefetch" href="https://images.unsplash.com" />
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" as="style">
+	<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+	
+	<!-- ============ MODERN CSS ============ -->
+	<link rel="stylesheet" href="style-modern.css">
+	
+	<!-- ============ CRITICAL CSS INLINE ============ -->
+	<style>
+		:root {
+		  --primary: #0066ff;
+		  --accent: #00d9a3;
+		  --text: #1a1a2e;
+		  --bg: #ffffff;
+		  --border: #e5e7eb;
+		}
+		html.dark-mode {
+		  --bg: #0f1117;
+		  --text: #f0f0f0;
+		  --border: #333;
+		}
+		html { scroll-behavior: smooth; font-size: 16px; }
+		* {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		}
+		/* Critical rendering path optimization */
+		body {
+		  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		  background: var(--bg);
+		  color: var(--text);
+		  line-height: 1.6;
+		  contain: layout style paint;
+		}
+		/* Reduce paint areas */
+		header {
+		  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+		  padding: 16px 0;
+		  border-bottom: 2px solid var(--border);
+		  contain: layout style;
+		}
+		nav {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  max-width: 1200px;
+		  margin: 0 auto;
+		  padding: 0 20px;
+		  gap: 8px;
+		}
+		nav a {
+		  color: #000;
+		  text-decoration: none;
+		  font-weight: 600;
+		  padding: 8px 12px;
+		  border-radius: 4px;
+		  transition: background-color 0.2s ease, color 0.2s ease;
+		  will-change: background-color;
+		}
+		nav a:hover {
+		  background: var(--primary);
+		  color: white;
+		}
+		nav a:active { transform: scale(0.98); }
+		/* Critical viewport sizing */
+		.container {
+		  max-width: 1200px;
+		  margin: 0 auto;
+		  padding: 40px 20px;
+		  contain: layout style;
+		}
+		/* Typography optimization */
+		h1 { margin-bottom: 16px; font-size: 2rem; }
+		h2 { font-size: 1.5rem; margin: 1.5rem 0 0.5rem; }
+		h3 { font-size: 1.25rem; margin: 1rem 0 0.5rem; }
+		/* Button optimization - remove expensive transitions */
+		button {
+		  background: var(--primary);
+		  color: white;
+		  border: none;
+		  padding: 12px 24px;
+		  border-radius: 6px;
+		  cursor: pointer;
+		  font-weight: 600;
+		  transition: background-color 0.2s ease;
+		}
+		button:hover {
+		  background: #0052cc;
+		}
+		button:active { transform: scale(0.98); }
+		/* Performance: Reduce layout shifts */
+		img { 
+		  display: block; 
+		  max-width: 100%; 
+		  height: auto; 
+		  contain: strict;
+		  loading: lazy;
+		}
+		img[loading="eager"] { contain: size layout style paint; }
+		/* SVG images - no paint optimization */
+		svg { vector-effect: non-scaling-stroke; }
+		/* Optimize animations */
+		@media (prefers-reduced-motion: reduce) {
+		  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+		  button { will-change: auto; }
+		}
+		/* Network information API */
+		@media (prefers-reduced-data: reduce) {
+		  img { content-visibility: auto; }
+		  iframe { content-visibility: auto; }
+		}
+	</style>
+	<!-- ============ MODERN CSS - PRIMARY ============ -->
+	<link rel="stylesheet" href="style-modern.css">
+	<noscript><link rel="stylesheet" href="style-modern.css"></noscript>
+
+	<!-- ============ TUTOFACILE 2.1 MODULES ============ -->
+	<!-- Master Configuration & Initialization -->
+	<script src="config-system.js" defer></script>
+	<script src="init.js" defer></script>
+	
+	<!-- ============ TUTOFACILE 2.1 EXTENSIONS ============ -->
+	<!-- Optional feature modules for enhanced functionality -->
+	<script src="dark-mode-toggle.js" defer></script>
+	<script src="language-selector.js" defer></script>
+	<!-- Lazy load non-critical modules -->
+	<script src="pdf-export.js" defer data-loading="lazy"></script>
+	<script src="social-sharing.js" defer data-loading="lazy"></script>
+	
+	<!-- ============ GOOGLE ADSENSE ============ -->
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8577889750610248" crossorigin="anonymous"></script>
+	
+	<!-- ============ GOOGLE ANALYTICS (DEFERRED TO END OF BODY) ============ -->
+	<!-- Moved to bottom of page for performance -->
+	
+	<!-- ============ SCHEMA.ORG (Structured Data) ============ -->
+	<script type="application/ld+json">
+	{
+		"@context":"https://schema.org",
+		"@type":"WebSite",
+		"name":"TutoFacile",
+		"url":"https://tutofacile.netlify.app",
+		"potentialAction":
+		{
+			"@type":"SearchAction",
+			"target":"https://tutofacile.netlify.app/?q={search_term_string}",
+			"query-input":"required name=search_term_string"
+		}
+	}
+	</script>
+
+	<!-- ============ TRANSLATIONS (COMPLETE & WORKING) ============ -->
+	<script>
+		window.translations = {
+			fr: {
+				// Navigation
+				home: 'Accueil', diy: 'Bricolage', cooking: 'Cuisine', code: 'Programmation', login: 'Connexion', gardening: 'Jardinage', wellness: 'Bien-être', electronics: 'Électronique',
+				dashboard: '📊 Dashboard', logout: 'Déconnexion', register: 'S\'inscrire',
+				// Search & Filter
+				search: '🔍 Rechercher un tuto...', share: '📝 Partager votre tuto', discover: '🔍 Découvrir',
+				all: 'Tous', easy: 'Facile', medium: 'Moyen', hard: 'Difficile',
+				// Main Sections
+				about: 'À propos de TutoFacile', aboutDesc: 'TutoFacile est une plateforme collaborative dédiée au partage de tutoriels et de guides pratiques. Qu\'il s\'agisse de bricolage, cuisine, programmation ou bien-être, trouvez des instructions claires et faciles à suivre.',
+				categories: 'Catégories 📁', categoriesDesc: 'Parcourez nos tutoriels par domaine et trouvez ce que vous cherchez.',
+				latest: 'Derniers Tutos 🔥', latestDesc: 'Découvrez les tutoriels les plus récents.',
+				popular: 'Les Plus Populaires ⭐', popularDesc: 'Les tutoriels les plus appréciés.',
+				stats: 'Notre communauté en chiffres',
+				// Features
+				features: '50+ Tutos', library: 'Une bibliothèque complète et gratuite avec plus de 50 tutoriels pratiques.',
+				community: 'Rejoignez notre communauté et partagez vos connaissances avec d\'autres passionnés.',
+				free: '100% gratuit, sans inscription obligatoire, sans publicités intrusives.',
+				practical: 'Des guides détaillés et faciles à suivre, adaptés à tous les niveaux.',
+				categories_label: 'Catégories', always_free: 'Toujours !', growth: 'Croissance',
+				loading: 'Chargement...', noResults: 'Aucun résultat'
+			},
+			en: {
+				// Navigation
+				home: 'Home', diy: 'DIY', cooking: 'Cooking', code: 'Programming', login: 'Login', gardening: 'Gardening', wellness: 'Wellness', electronics: 'Electronics',
+				dashboard: '📊 Dashboard', logout: 'Logout', register: 'Sign Up',
+				// Search & Filter
+				search: '🔍 Search a tutorial...', share: '📝 Share your tutorial', discover: '🔍 Discover',
+				all: 'All', easy: 'Easy', medium: 'Medium', hard: 'Hard',
+				// Main Sections
+				about: 'About TutoFacile', aboutDesc: 'TutoFacile is a collaborative platform dedicated to sharing tutorials and practical guides. Whether it\'s DIY, cooking, programming or more, find clear and easy-to-follow instructions.',
+				categories: 'Categories 📁', categoriesDesc: 'Browse our tutorials by topic and find what you\'re looking for.',
+				latest: 'Latest Tutorials 🔥', latestDesc: 'Discover the newest tutorials.',
+				popular: 'Most Popular ⭐', popularDesc: 'The most appreciated tutorials.',
+				stats: 'Our community by the numbers',
+				// Features
+				features: '50+ Tutorials', library: 'A complete free library with over 50 practical tutorials.',
+				community: 'Join our community and share your knowledge with other enthusiasts.',
+				free: '100% free, no mandatory registration, no intrusive ads.',
+				practical: 'Detailed guides easy to follow, suited for all levels.',
+				categories_label: 'Categories', always_free: 'Always!', growth: 'Growth',
+				loading: 'Loading...', noResults: 'No results'
+			}
+		};
+
+		window.t = function(key) {
+			const lang = localStorage.getItem('siteLang') || 'fr';
+			return (window.translations[lang]?.[key]) || key;
+		};
+
+		window.updateAllTranslations = function() {
+			const lang = localStorage.getItem('siteLang') || 'fr';
+			document.documentElement.lang = lang;
+			
+			document.querySelectorAll('[data-i18n]').forEach(el => {
+				const key = el.getAttribute('data-i18n');
+				const text = window.t(key);
+				
+				if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+					el.placeholder = text;
+				} else if(el.tagName === 'BUTTON') {
+					let emoji = el.textContent.match(/^[^a-zA-Z]*/)?.[0] || '';
+					el.textContent = emoji + text;
+				} else {
+					el.textContent = text;
+				}
+			});
+
+			document.querySelectorAll('.lang-btn').forEach(btn => {
+				if(btn.getAttribute('data-lang') === lang) {
+					btn.classList.add('active');
+				} else {
+					btn.classList.remove('active');
+				}
+			});
+			
+			if(window.displayTutos) window.displayTutos();
+			if(window.loadLatestTutos) window.loadLatestTutos();
+			if(window.loadPopularTutos) window.loadPopularTutos();
+		};
+
+		// Language button click handler
+		function setupLanguageButtons() {
+			document.querySelectorAll('.lang-btn').forEach(btn => {
+				btn.addEventListener('click', function() {
+					const lang = this.getAttribute('data-lang');
+					localStorage.setItem('siteLang', lang);
+					window.updateAllTranslations();
+					if(window.loadLatestTutos) window.loadLatestTutos();
+					if(window.loadPopularTutos) window.loadPopularTutos();
+				});
+			});
+		}
+
+		// Initialize on load
+		if(document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', function() {
+				window.updateAllTranslations();
+				setupLanguageButtons();
+				checkUserAuth();
+			});
+		} else {
+			window.updateAllTranslations();
+			setupLanguageButtons();
+			checkUserAuth();
+		}
+
+		// Check if user is logged in (with lazy loading of auth.js)
+		function checkUserAuth() {
+			// Seulement charger auth.js si l'utilisateur a un token
+			const currentUser = localStorage.getItem('tutofacile_current_user');
+			if (!currentUser) return;
+
+			// Charger auth.js dynamiquement
+			const script = document.createElement('script');
+			script.src = 'auth.js';
+			script.onload = function() {
+				if (typeof AUTH !== 'undefined' && AUTH.getCurrentUser) {
+					const user = AUTH.getCurrentUser();
+					const dashboardLink = document.getElementById('dashboard-link');
+					const loginLink = document.querySelector('a[data-i18n="login"]');
+					
+					if (user) {
+						if (dashboardLink) dashboardLink.style.display = 'inline-block';
+						if (loginLink) {
+							loginLink.textContent = '🚪 ' + user.username;
+							loginLink.href = '#';
+							loginLink.onclick = (e) => {
+								e.preventDefault();
+								if (confirm('Voulez-vous vous déconnecter?')) {
+									AUTH.logout();
+									window.location.reload();
+								}
+							};
+						}
+					} else {
+						if (dashboardLink) dashboardLink.style.display = 'none';
+					}
+				}
+			};
+			document.head.appendChild(script);
+		}
+	</script>
+	
+	<!-- ============ INLINE CENTERING STYLES - REMOVED, USE CSS ============ -->
+	<style>
+		/* Dark mode styles only */
+		:root {
+			--bg-light: #fafafa;
+			--text-light: #333;
+			--bg-dark: #1a1a1a;
+			--text-dark: #f0f0f0;
+		}
+		
+		html.dark-mode {
+			--bg: var(--bg-dark);
+			--text: var(--text-dark);
+		}
+		
+		html.dark-mode body {
+			background: var(--bg-dark);
+			color: var(--text-dark);
+		}
+		
+		html.dark-mode header {
+			background: #222 !important;
+		}
+		
+		html.dark-mode nav a {
+			color: var(--text-dark) !important;
+		}
+		
+		html.dark-mode .card, html.dark-mode article {
+			background: #2a2a2a !important;
+		}
+		
+		html.dark-mode section {
+			background-color: #1a1a1a !important;
+		}
+		
+		html.dark-mode .site-footer {
+			background: #000 !important;
+		}
+		
+		html.dark-mode .search-section {
+			background: #2a2a2a !important;
+		}
+		
+		html.dark-mode .search-wrapper input {
+			background: #333 !important;
+			color: var(--text-dark) !important;
+			border-color: #444 !important;
+		}
+		
+		html.dark-mode .search-results {
+			background: #2a2a2a !important;
+			border-color: #444 !important;
+		}
+		
+		html.dark-mode .result-item {
+			color: var(--text-dark) !important;
+		}
+		
+		html.dark-mode .result-item:hover {
+			background: #333 !important;
+		}
+		
+		/* ============ DARK MODE TOGGLE BUTTON ============ */
+		#dark-mode-toggle {
+			background: none;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			padding: 8px 12px;
+			transition: transform 0.3s;
+		}
+		
+		#dark-mode-toggle:hover {
+			transform: scale(1.2) rotate(20deg);
+		}
+	</style>
+	
+	<!-- ============ PERFORMANCE OPTIMIZATION ============ -->
+	<link rel="preload" as="script" href="script.js">
+	<link rel="preload" as="script" href="legal-cookie-banner.js">
+	<link rel="preload" as="style" href="style.css">
+</head>
+<body>
+	<!-- ============ HEADER/NAVIGATION ============ -->
+	<header class="site-header">
+		<div class="header-inner">
+			<a class="logo" href="/">
+				<img src="logo.svg" alt="TutoFacile" style="height: 50px; width: auto;">
+			</a>
+			
+			<nav class="nav">
+				<a href="/" data-i18n="home">Accueil</a>
+				
+				<!-- DROPDOWN CATEGORIES -->
+				<div style="position: relative; display: inline-block;">
+					<button id="cat-toggle" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; cursor: pointer; font-size: 1rem; font-weight: 700; padding: 10px 16px; border-radius: 6px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,105,246,0.3); transition: all 0.3s; font-weight: bold;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,105,246,0.4)'" onmouseout="this.style.transform='translateY(0)'" data-i18n="categories_label">📁 Catégories ▼</button>
+					<div id="cat-menu" style="display: none; position: absolute; top: 100%; left: 0; background: white; border: 2px solid var(--primary); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); z-index: 200; min-width: 220px; backdrop-filter: blur(10px); margin-top: 8px;">
+						<a href="/category.html?cat=Bricolage" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="diy">🔨 Bricolage</a>
+						<a href="/category.html?cat=Cuisine" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="cooking">👨‍🍳 Cuisine</a>
+						<a href="/category.html?cat=Code" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="code">💻 Programmation</a>
+						<a href="/category.html?cat=Jardinage" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="gardening">🌱 Jardinage</a>
+						<a href="/category.html?cat=Bien-être" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="wellness">🧘 Bien-être</a>
+						<a href="/category.html?cat=Électronique" style="display: block; padding: 14px 16px; text-decoration: none; color: var(--text); transition: all 0.2s; font-weight: 500;" onmouseover="this.style.background='var(--primary-light)'; this.style.paddingLeft='20px'" onmouseout="this.style.background=''; this.style.paddingLeft='16px'" data-i18n="electronics">⚡ Électronique</a>
+					</div>
+				</div>
+				
+				<span id="user-nav" style="display: flex; gap: 12px; align-items: center;">
+					<a href="/my-dashboard.html" style="display: none;" id="dashboard-link">📊 Dashboard</a>
+					<a href="/login.html" data-i18n="login">Connexion</a>
+					<button id="dark-mode-toggle" aria-label="Basculer le mode sombre" title="Mode sombre" style="background: none; border: none; cursor: pointer; font-size: 1.5rem; padding: 0;">🌓</button>
+				</span>
+			</nav>
+			
+			<script>
+				// Dropdown menu toggle
+				document.getElementById('cat-toggle').addEventListener('click', function(e) {
+					e.preventDefault();
+					const menu = document.getElementById('cat-menu');
+					menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+				});
+				
+				// Close menu when clicking outside
+				document.addEventListener('click', function(e) {
+					const menu = document.getElementById('cat-menu');
+					const toggle = document.getElementById('cat-toggle');
+					if (!menu.contains(e.target) && e.target !== toggle) {
+						menu.style.display = 'none';
+					}
+				});
+			</script>
+			
+			<div class="lang-buttons">
+				<button class="lang-btn active" data-lang="fr">🇫🇷 FR</button>
+				<button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+			</div>
+		</header>
+	</header>
+
+	<main style="text-align: center;">
+		<!-- ============ HERO SECTION ============ -->
+		<section class="hero" style="text-align: center;padding:30px 20px;background:linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);color:white;position:relative;overflow:hidden;">
+			<div style="position:absolute;top:0;right:0;width:200px;height:200px;background:rgba(255,255,255,0.05);border-radius:50%;transform:translate(80px,-40px);"></div>
+			<div style="position:absolute;bottom:0;left:0;width:180px;height:180px;background:rgba(255,255,255,0.05);border-radius:50%;transform:translate(-80px,80px);"></div>
+			<div class="container" style="text-align: center; margin: 0 auto; position: relative; z-index: 1;">
+				<h1 style="text-align: center; margin: 0 auto 12px; font-size: 2.2rem; font-weight: bold; line-height: 1.2;">🎓 Trouvez le Tuto qu'il vous faut</h1>
+				<p class="hero-sub" style="text-align: center; margin: 8px auto 16px; font-size: 1.05rem; opacity: 0.95; line-height: 1.5;">Guides simples et pratiques. Gratuit, pour tous les niveaux. 🚀</p>
+				<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+					<a href="/contribute.html" class="btn btn-primary" style="display:inline-block;padding:11px 22px;background:white;color:var(--primary);text-decoration:none;border-radius:6px;font-weight:bold;font-size:0.95rem;transition:all 0.3s;box-shadow:0 3px 8px rgba(0,0,0,0.15);" data-i18n="share">📝 Partager</a>
+					<a href="#latest-tutos-grid" class="btn" style="display:inline-block;padding:11px 22px;background:rgba(255,255,255,0.2);color:white;text-decoration:none;border-radius:6px;font-weight:bold;font-size:0.95rem;border:2px solid white;transition:all 0.3s;" data-i18n="discover">🔍 Découvrir</a>
+				</div>
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:20px;max-width:400px;margin-left:auto;margin-right:auto;font-size:0.85rem;">
+					<div style="text-align:center;">
+						<div style="font-size:1.6rem;margin-bottom:4px;">50+</div>
+						<p style="opacity:0.9;margin:0;">Tutoriels</p>
+					</div>
+					<div style="text-align:center;">
+						<div style="font-size:1.6rem;margin-bottom:4px;">4</div>
+						<p style="opacity:0.9;margin:0;">Catégories</p>
+					</div>
+					<div style="text-align:center;">
+						<div style="font-size:1.6rem;margin-bottom:4px;">🆓</div>
+						<p style="opacity:0.9;margin:0;">Gratuit</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ SEARCH BAR ============ -->
+		<section class="search-section container" style="margin-top:-20px;position:relative;z-index:10;text-align:center;margin-left:auto;margin-right:auto;">
+			<div class="search-wrapper" style="text-align: center; display: flex; justify-content: center; gap: 8px; align-items: center;">
+				<input type="text" id="search-input" placeholder="🔍 Rechercher..." autocomplete="off" style="text-align: center; width: 100%; max-width: 400px; padding: 10px 14px; border: 2px solid #ddd; border-radius: 6px; font-size: 0.95rem;" data-i18n="search" />
+				<button id="advanced-filters-btn" class="filter-btn" style="white-space: nowrap; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 10px 16px; cursor: pointer; border-radius: 6px; font-weight: 600; transition: all 0.3s; font-size: 0.95rem;">🔍 Filtres</button>
+				<div id="search-results" class="search-results" aria-live="polite"></div>
+			</div>
+			<div class="search-filters" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;text-align:center;margin-left:auto;margin-right:auto;">
+				<button class="filter-btn active" onclick="setFilter('all')" data-i18n="all">Tous</button>
+				<button class="filter-btn" onclick="setFilter('Facile')" data-i18n="easy">Facile</button>
+				<button class="filter-btn" onclick="setFilter('Moyen')" data-i18n="medium">Moyen</button>
+				<button class="filter-btn" onclick="setFilter('Difficile')" data-i18n="hard">Difficile</button>
+			</div>
+		</section>
+
+		<!-- ============ RECOMMENDATIONS SECTION ============ -->
+		<section id="recommendations-container" style="margin: 40px auto; padding: 30px 20px; max-width: 1200px;">
+			<!-- Populated by recommendation-engine.js -->
+		</section>
+
+		<!-- ============ ABOUT SECTION ============ -->
+		<section class="container" style="margin:80px auto 60px;padding:40px 30px;background:linear-gradient(135deg, var(--primary-light) 0%, var(--accent-light) 100%);border-radius:16px;text-align:center;border:1px solid var(--primary);">
+			<h2 style="text-align: center; margin: 0 auto 20px; color: var(--primary); font-size: 2.2rem;" data-i18n="about">À propos de TutoFacile</h2>
+			<p style="color: var(--text-light); line-height:1.8; margin:0 auto 30px; text-align:center; max-width:800px; font-size: 1.05rem;" data-i18n="aboutDesc">TutoFacile est une plateforme collaborative dédiée au partage de tutoriels et de guides pratiques. Qu'il s'agisse de bricolage, cuisine, programmation ou bien-être, trouvez des instructions claires et faciles à suivre.</p>
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin:0 auto;max-width:1100px;">
+				<div style="background:white;padding:24px;border-radius:12px;border-left:5px solid var(--success);text-align:center;margin:0 auto;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:all 0.3s;">
+					<h3 style="text-align: center; color: var(--primary); margin-bottom: 12px;">📚 <span data-i18n="features">50+ Tutos</span></h3>
+					<p style="color: var(--text-light); font-size:0.95rem; margin:0; text-align:center; line-height: 1.6;" data-i18n="library">Une bibliothèque complète et gratuite avec plus de 50 tutoriels pratiques.</p>
+				</div>
+				<div style="background:white;padding:24px;border-radius:12px;border-left:5px solid var(--primary);text-align:center;margin:0 auto;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:all 0.3s;">
+					<h3 style="text-align: center; color: var(--primary); margin-bottom: 12px;">👥 Communauté</h3>
+					<p style="color: var(--text-light); font-size:0.95rem; margin:0; text-align:center; line-height: 1.6;" data-i18n="community">Rejoignez notre communauté et partagez vos connaissances avec d'autres passionnés.</p>
+				</div>
+				<div style="background:white;padding:24px;border-radius:12px;border-left:5px solid var(--accent);text-align:center;margin:0 auto;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:all 0.3s;">
+					<h3 style="text-align: center; color: var(--primary); margin-bottom: 12px;">🆓 Gratuit</h3>
+					<p style="color: var(--text-light); font-size:0.95rem; margin:0; text-align:center; line-height: 1.6;" data-i18n="free">100% gratuit, sans inscription obligatoire, sans publicités intrusives.</p>
+				</div>
+				<div style="background:white;padding:24px;border-radius:12px;border-left:5px solid var(--warning);text-align:center;margin:0 auto;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:all 0.3s;">
+					<h3 style="text-align: center; color: var(--primary); margin-bottom: 12px;">💡 Pratique</h3>
+					<p style="color: var(--text-light); font-size:0.95rem; margin:0; text-align:center; line-height: 1.6;" data-i18n="practical">Des guides détaillés et faciles à suivre, adaptés à tous les niveaux.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ WHY TUTOFACILE SECTION ============ -->
+		<section style="background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); padding: 60px 30px; margin: 80px auto; border-radius: 16px; color: white;">
+			<div class="container">
+				<h2 style="text-align: center; margin: 0 auto 12px; font-size: 2.2rem; animation: slideDown 0.8s ease-out;">Pourquoi TutoFacile? ✨</h2>
+				<p style="text-align: center; margin: 0 auto 40px; font-size: 1.1rem; opacity: 0.95; animation: fadeIn 1s ease-out 0.2s both;">Tout ce qui vous faut pour apprendre simplement</p>
+				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
+					<div style="text-align: center; padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; animation: cardEntry 0.6s ease-out 0.1s both;" onmouseover="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
+						<div style="font-size: 3rem; margin-bottom: 12px;">🆓</div>
+						<h3 style="margin: 0 0 8px; font-size: 1.1rem;">100% Gratuit</h3>
+						<p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Pas de frais caché, pas d'abonnement</p>
+					</div>
+					<div style="text-align: center; padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; animation: cardEntry 0.6s ease-out 0.2s both;" onmouseover="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
+						<div style="font-size: 3rem; margin-bottom: 12px;">👥</div>
+						<h3 style="margin: 0 0 8px; font-size: 1.1rem;">Communauté</h3>
+						<p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Partagez vos tutoriels avec tous</p>
+					</div>
+					<div style="text-align: center; padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; animation: cardEntry 0.6s ease-out 0.3s both;" onmouseover="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
+						<div style="font-size: 3rem; margin-bottom: 12px;">🎯</div>
+						<h3 style="margin: 0 0 8px; font-size: 1.1rem;">Pratique</h3>
+						<p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Guides simples et détaillés</p>
+					</div>
+					<div style="text-align: center; padding: 20px; border-radius: 12px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; animation: cardEntry 0.6s ease-out 0.4s both;" onmouseover="this.style.transform='translateY(-8px)';this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
+						<div style="font-size: 3rem; margin-bottom: 12px;">📱</div>
+						<h3 style="margin: 0 0 8px; font-size: 1.1rem;">Accessible</h3>
+						<p style="margin: 0; opacity: 0.9; font-size: 0.95rem;">Sur tous les appareils, n'importe où</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ AITOOLS PROMOTION BANNER ============ -->
+		<section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 30px; margin: 60px auto; border-radius: 16px; color: white; position: relative; overflow: hidden;">
+			<div style="position: absolute; top: 0; right: 0; width: 250px; height: 250px; background: rgba(255,255,255,0.1); border-radius: 50%; transform: translate(80px, -80px);"></div>
+			<div style="position: absolute; bottom: 0; left: 0; width: 200px; height: 200px; background: rgba(255,255,255,0.08); border-radius: 50%; transform: translate(-60px, 80px);"></div>
+			<div class="container" style="position: relative; z-index: 1; max-width: 900px;">
+				<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+					<div style="text-align: left;">
+						<h2 style="text-align: left; margin: 0 0 16px; font-size: 2rem; font-weight: bold; line-height: 1.3;">🛡️ Besoin de protéger votre contenu?</h2>
+						<p style="text-align: left; margin: 0 0 24px; font-size: 1.1rem; opacity: 0.95; line-height: 1.6;">Découvrez <strong>AITools</strong> - L'extension Chrome qui détecte l'IA, bloque les pubs, anonymise vos données et analyse le contenu en temps réel.</p>
+						<div style="display: flex; gap: 16px; flex-wrap: wrap;">
+							<button onclick="window.open('https://chromewebstore.google.com/detail/aitools', '_blank')" style="display: inline-block; padding: 12px 28px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; transition: all 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.2)'">
+								📥 Installer AITools
+							</button>
+							<a href="aitools-help.html" style="display: inline-block; padding: 12px 28px; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1rem; border: 2px solid white; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='translateY(0)'">
+								✨ En savoir plus
+							</a>
+						</div>
+					</div>
+					<div style="text-align: center;">
+						<div style="font-size: 5rem; margin: 20px 0;">🎯</div>
+						<div style="background: rgba(255,255,255,0.15); padding: 24px; border-radius: 12px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+							<div style="font-size: 2.5rem; margin-bottom: 12px; font-weight: bold;">8 Outils Puissants</div>
+							<ul style="text-align: left; margin: 0; padding: 0; list-style: none; font-size: 0.95rem; line-height: 2;">
+								<li>✅ Détection d'IA</li>
+								<li>✅ Blocage de pubs</li>
+								<li>✅ Anonymisation</li>
+								<li>✅ Analyse d'onglets</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ CATEGORIES SECTION ============ -->
+		<section class="container" style="text-align:center; margin: 60px auto;">
+			<h2 style="text-align: center; margin: 0 auto 12px; color: var(--primary); font-size: 2.2rem;" data-i18n="categories">Catégories 📁</h2>
+			<p style="color: var(--text-light); margin:0 auto 32px;text-align:center; font-size: 1.05rem;" data-i18n="categoriesDesc">Parcourez nos tutoriels par domaine et trouvez ce que vous cherchez.</p>
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin:0 auto;max-width:1100px;">
+				<a class="card" href="/category.html?cat=Bricolage" style="text-align:center;margin:0 auto;padding:28px 20px;text-decoration:none;color:inherit;background:linear-gradient(135deg, rgba(6,105,246,0.1), rgba(0,196,167,0.05));border:2px solid var(--primary);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 20px rgba(6,105,246,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow=''">
+					<div style="font-size:3.5rem;margin:12px 0;filter:drop-shadow(0 2px 4px rgba(6,105,246,0.3));">🔨</div>
+					<h3 style="text-align: center; margin: 12px 0; color: var(--primary); font-size: 1.3rem;">Bricolage</h3>
+					<span style="text-align:center;font-size:0.9rem;color: var(--text-light); display: block; margin-top: 8px;">(DIY - Réparation & Décoration)</span>
+					<p style="color: var(--text-light); font-size: 0.85rem; margin: 12px 0 0; line-height: 1.5; text-align: center;">Apprenez à réparer, construire et décorer votre maison.</p>
+				</a>
+				<a class="card" href="/category.html?cat=Cuisine" style="text-align:center;margin:0 auto;padding:28px 20px;text-decoration:none;color:inherit;background:linear-gradient(135deg, rgba(34,197,94,0.1), rgba(251,146,60,0.05));border:2px solid var(--success);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 20px rgba(34,197,94,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow=''">
+					<div style="font-size:3.5rem;margin:12px 0;filter:drop-shadow(0 2px 4px rgba(34,197,94,0.3));">👨‍🍳</div>
+					<h3 style="text-align: center; margin: 12px 0; color: var(--success); font-size: 1.3rem;">Cuisine</h3>
+					<span style="text-align:center;font-size:0.9rem;color: var(--text-light); display: block; margin-top: 8px;">(Recettes & Techniques)</span>
+					<p style="color: var(--text-light); font-size: 0.85rem; margin: 12px 0 0; line-height: 1.5; text-align: center;">Découvrez des recettes délicieuses et des techniques culinaires.</p>
+				</a>
+				<a class="card" href="/category.html?cat=Code" style="text-align:center;margin:0 auto;padding:28px 20px;text-decoration:none;color:inherit;background:linear-gradient(135deg, rgba(6,105,246,0.1), rgba(0,196,167,0.05));border:2px solid var(--primary);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 20px rgba(6,105,246,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow=''">
+					<div style="font-size:3.5rem;margin:12px 0;filter:drop-shadow(0 2px 4px rgba(6,105,246,0.3));">💻</div>
+					<h3 style="text-align: center; margin: 12px 0; color: var(--primary); font-size: 1.3rem;">Programmation</h3>
+					<span style="text-align:center;font-size:0.9rem;color: var(--text-light); display: block; margin-top: 8px;">(Web, Python, Node.js)</span>
+					<p style="color: var(--text-light); font-size: 0.85rem; margin: 12px 0 0; line-height: 1.5; text-align: center;">Maîtrisez la programmation avec nos tutoriels détaillés.</p>
+				</a>
+				<a class="card" href="/category.html?cat=Jardinage" style="text-align:center;margin:0 auto;padding:28px 20px;text-decoration:none;color:inherit;background:linear-gradient(135deg, rgba(34,197,94,0.1), rgba(251,146,60,0.05));border:2px solid var(--success);transition:all 0.3s;cursor:pointer;" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 20px rgba(34,197,94,0.2)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow=''">
+					<div style="font-size:3.5rem;margin:12px 0;filter:drop-shadow(0 2px 4px rgba(34,197,94,0.3));">🌱</div>
+					<h3 style="text-align: center; margin: 12px 0; color: var(--success); font-size: 1.3rem;">Jardinage</h3>
+					<span style="text-align:center;font-size:0.9rem;color: var(--text-light); display: block; margin-top: 8px;">(Plantes & Potager)</span>
+					<p style="color: var(--text-light); font-size: 0.85rem; margin: 12px 0 0; line-height: 1.5; text-align: center;">Cultivez votre jardin et vos plantes avec succès.</p>
+				</a>
+			</div>
+		</section>
+
+		<!-- ============ TRENDING SECTION ============ -->
+		<section style="background: linear-gradient(135deg, rgba(0,105,246,0.05) 0%, rgba(0,196,167,0.05) 100%); padding: 60px 30px; margin: 60px auto; border-radius: 16px;">
+			<div class="container">
+				<h2 style="text-align: center; margin: 0 auto 8px; color: var(--primary);">🔥 Tendances</h2>
+				<p style="color:#666; margin:0 auto 30px; text-align:center; font-size: 1.1rem;">Les tutoriels en vogue maintenant</p>
+				<div class="grid grid-4" id="trending-grid" style="margin:0 auto;">
+					<p style="grid-column:1/-1; text-align:center; padding:40px; color:#999;">⏳ Chargement...</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ LATEST TUTORIALS SECTION ============ -->
+		<section class="latest-tutos container" style="text-align:center;margin:60px auto;">
+			<h2 style="text-align: center; margin: 0 auto 8px;" data-i18n="latest">Derniers Tutos 🔥</h2>
+			<p style="color:#666;margin:0 auto 20px;text-align:center;" data-i18n="latestDesc">Découvrez les tutoriels les plus récents.</p>
+			<div class="grid grid-4" id="latest-tutos-grid" style="margin:0 auto;">
+				<p style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">⏳ <span data-i18n="loading">Chargement...</span></p>
+			</div>
+		</section>
+
+		<!-- ============ POPULAR TUTORIALS SECTION ============ -->
+		<section class="container" style="margin:60px auto;text-align:center;">
+			<h2 style="text-align: center; margin: 0 auto 8px;" data-i18n="popular">Les Plus Populaires ⭐</h2>
+			<p style="color:#666;margin:0 auto 20px;text-align:center;" data-i18n="popularDesc">Les tutoriels les plus appréciés.</p>
+			<div class="grid grid-4" id="popular-tutos-grid" style="margin:0 auto;">
+				<p style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">⏳ <span data-i18n="loading">Chargement...</span></p>
+			</div>
+		</section>
+		<!-- ============ STATISTICS SECTION ============ -->
+		<section class="container" style="margin:60px auto;padding:40px 30px;background:linear-gradient(135deg, #0069f6 0%, #00c4a7 100%);border-radius:16px;color:white;text-align:center;box-shadow:0 8px 24px rgba(6,105,246,0.25);">
+			<h2 style="color:white;margin:0 auto 12px;text-align:center;font-size:2.2rem;" data-i18n="stats">Notre communauté en chiffres</h2>
+			<p style="opacity:0.95;margin:0 auto 32px;text-align:center;font-size:1.05rem;">TutoFacile en quelques chiffres inspirants</p>
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin:0 auto;max-width:1200px;">
+				<div style="text-align:center;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);">
+					<h3 style="font-size:3rem;margin:0;text-align:center;font-weight:bold;">50+</h3>
+					<p style="margin:12px 0 0;opacity:0.95;text-align:center;font-size:1.1rem;">📚 Tutoriels Complets</p>
+					<span style="opacity:0.85;font-size:0.9rem;display:block;margin-top:8px;">Pour tous les niveaux</span>
+				</div>
+				<div style="text-align:center;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);">
+					<h3 style="font-size:3rem;margin:0;text-align:center;font-weight:bold;">4</h3>
+					<p style="margin:12px 0 0;opacity:0.95;text-align:center;font-size:1.1rem;" data-i18n="categories_label">Catégories Principales</p>
+					<span style="opacity:0.85;font-size:0.9rem;display:block;margin-top:8px;">Bricolage, Cuisine, Code, Jardinage</span>
+				</div>
+				<div style="text-align:center;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);">
+					<h3 style="font-size:3rem;margin:0;text-align:center;font-weight:bold;">🆓</h3>
+					<p style="margin:12px 0 0;opacity:0.95;text-align:center;font-size:1.1rem;" data-i18n="always_free">100% Gratuit</p>
+					<span style="opacity:0.85;font-size:0.9rem;display:block;margin-top:8px;">Aucune inscription obligatoire</span>
+				</div>
+				<div style="text-align:center;padding:20px;background:rgba(255,255,255,0.1);border-radius:12px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);">
+					<h3 style="font-size:3rem;margin:0;text-align:center;font-weight:bold;">📈</h3>
+					<p style="margin:12px 0 0;opacity:0.95;text-align:center;font-size:1.1rem;" data-i18n="growth">En Croissance</p>
+					<span style="opacity:0.85;font-size:0.9rem;display:block;margin-top:8px;">Nouveaux contenus réguliers</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ CTA SECTION ============ -->
+		<section style="background: linear-gradient(135deg, rgba(0,105,246,0.1) 0%, rgba(0,196,167,0.1) 100%); padding: 80px 30px; margin: 80px 0; text-align: center;">
+			<div class="container">
+				<h2 style="margin: 0 auto 12px; font-size: 2.2rem; animation: slideDown 0.8s ease-out;">Prêt à Commencer? 🚀</h2>
+				<p style="color:#666; margin: 0 auto 30px; font-size: 1.1rem; animation: fadeIn 1s ease-out 0.2s both; max-width: 500px;">Accédez à des centaines de tutoriels gratuits et rejoignez notre communauté d'apprenants</p>
+				<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; animation: fadeIn 1s ease-out 0.4s both;">
+					<a href="/category.html" class="btn" style="display: inline-block; padding: 14px 32px; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.05rem; border: 2px solid var(--primary); transition: all 0.3s;">🔍 Explorer les Catégories</a>
+					<a href="/contribute" class="btn" style="display: inline-block; padding: 14px 32px; background: white; color: var(--primary); text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.05rem; border: 2px solid var(--primary); transition: all 0.3s;">✍️ Partager un Tutoriel</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ============ DISCORD COMMUNITY SECTION ============ -->
+		<section class="discord-community" style="background: linear-gradient(135deg, #5865F2 0%, #404EED 100%); padding: 60px 20px; color: white; text-align: center;">
+			<div class="container" style="max-width: 1200px; margin: 0 auto;">
+				<h2 style="font-size: 2.5rem; margin: 0 0 20px; font-weight: bold;">
+					🎮 Rejoignez Notre Communauté Discord
+				</h2>
+				<p style="font-size: 1.1rem; margin: 0 0 40px; opacity: 0.95; line-height: 1.6;">
+					Connectez-vous avec d'autres passionnés de tutoriels, posez vos questions et partagez vos réalisations en direct!
+				</p>
+				
+				<!-- Discord Widget -->
+				<div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px;">
+					<!-- Widget Embed -->
+					<div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+						<iframe src="https://discord.com/widget?id=1462012154520801330&theme=dark" width="350" height="500" title="Discord Community Widget" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" style="border-radius: 8px;"></iframe>
+					</div>
+					
+					<!-- Join Benefits -->
+					<div style="flex: 1; min-width: 300px; text-align: left;">
+						<div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 12px; backdrop-filter: blur(10px);">
+							<h3 style="font-size: 1.3rem; margin: 0 0 20px; color: white;">✨ Avantages de Rejoindre</h3>
+							
+							<div style="margin: 15px 0; display: flex; gap: 12px; align-items: flex-start;">
+								<span style="font-size: 1.5rem;">💬</span>
+								<div>
+									<strong>Discussions en Direct</strong>
+									<p style="margin: 5px 0 0; opacity: 0.9; font-size: 0.95rem;">Posez vos questions et obtenez des réponses rapidement</p>
+								</div>
+							</div>
+							
+							<div style="margin: 15px 0; display: flex; gap: 12px; align-items: flex-start;">
+								<span style="font-size: 1.5rem;">🎓</span>
+								<div>
+									<strong>Apprentissage Collaboratif</strong>
+									<p style="margin: 5px 0 0; opacity: 0.9; font-size: 0.95rem;">Apprenez des autres membres de la communauté</p>
+								</div>
+							</div>
+							
+							<div style="margin: 15px 0; display: flex; gap: 12px; align-items: flex-start;">
+								<span style="font-size: 1.5rem;">🚀</span>
+								<div>
+									<strong>Partage de Projets</strong>
+									<p style="margin: 5px 0 0; opacity: 0.9; font-size: 0.95rem;">Montrez vos réalisations et inspirez les autres</p>
+								</div>
+							</div>
+							
+							<div style="margin: 15px 0; display: flex; gap: 12px; align-items: flex-start;">
+								<span style="font-size: 1.5rem;">🎁</span>
+								<div>
+									<strong>Ressources Exclusives</strong>
+									<p style="margin: 5px 0 0; opacity: 0.9; font-size: 0.95rem;">Accès à des guides et vidéos exclusifs</p>
+								</div>
+							</div>
+							
+							<div style="margin: 25px 0 0;">
+								<a href="https://discord.gg/J2ssa2Wkjr" target="_blank" rel="noopener noreferrer" style="
+									display: inline-block;
+									padding: 14px 32px;
+									background: white;
+									color: #5865F2;
+									text-decoration: none;
+									border-radius: 8px;
+									font-weight: bold;
+									font-size: 1.05rem;
+									transition: all 0.3s;
+									cursor: pointer;
+									border: 2px solid white;
+								" onmouseover="this.style.background='#f0f0f0'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='white'; this.style.transform='scale(1)'">
+									📱 Rejoindre Discord →
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Stats -->
+				<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0;">
+					<div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+						<div style="font-size: 2rem; font-weight: bold; margin-bottom: 5px;">500+</div>
+						<div style="opacity: 0.9;">Membres Actifs</div>
+					</div>
+					<div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+						<div style="font-size: 2rem; font-weight: bold; margin-bottom: 5px;">1000+</div>
+						<div style="opacity: 0.9;">Messages par Mois</div>
+					</div>
+					<div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+						<div style="font-size: 2rem; font-weight: bold; margin-bottom: 5px;">24/7</div>
+						<div style="opacity: 0.9;">Support Communautaire</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- ============ FOOTER ============ -->
+	<footer class="site-footer" style="text-align:center;">
+		<div class="container" style="text-align:center;">
+			<div style="padding:40px 30px;background:linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);border-radius:12px;margin-bottom:30px;">
+				<h3 style="color:white;margin:0 0 12px;font-size:1.5rem;">TutoFacile</h3>
+				<p style="color:#aaa;margin:0 0 20px;font-size:0.95rem;line-height:1.6;">Votre plateforme de tutoriels pratiques gratuits. Apprenez le bricolage, la cuisine, la programmation et le jardinage avec des guides détaillés et faciles à suivre.</p>
+				<!-- Footer Links -->
+				<div class="footer-links" style="text-align:center;justify-content:center;gap:20px;flex-wrap:wrap;display:flex;">
+					<a href="/terms" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">📋 Conditions</a>
+					<a href="/privacy" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">🔒 Confidentialité</a>
+					<a href="/legal" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">⚖️ Mentions légales</a>
+					<a href="/cookies" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">🍪 Cookies</a>
+					<a href="/contribute" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">✍️ Contribuer</a>
+					<a href="mailto:djangogo33.tdac@gmail.com" style="color:var(--accent);text-decoration:none;transition:all 0.3s;position:relative;display:inline-block;" onmouseover="this.style.color='white';this.style.transform='translateY(-2px)'" onmouseout="this.style.color='var(--accent)';this.style.transform='translateY(0)'">📧 Contact</a>
+				</div>
+			</div>
+			<p style="text-align:center;color:#888;padding:20px 0;border-top:1px solid var(--border);">© 2025 TutoFacile. Tous droits réservés. | Créé avec ❤️ pour la communauté</p>
+		</div>
+	</footer>
+
+	<!-- ============ COOKIE BANNER ============ -->
+	<div id="cookie-banner" class="cookie-banner">
+		<p style="text-align:center;">🍪 TutoFacile utilise des cookies pour améliorer votre expérience.</p>
+		<div class="cookie-banner-buttons">
+			<button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">✅ Accepter</button>
+			<button class="cookie-btn cookie-btn-refuse" onclick="refuseCookies()">❌ Refuser</button>
+		</div>
+	</div>
+
+	<!-- ============ SCRIPTS ============ -->
+	<script src="script.js" defer></script>
+	<script src="legal-cookie-banner.js" defer></script>
+	<link rel="stylesheet" href="legal.css" />
+
+	<!-- ============ DARK MODE & LANGUAGE LOGIC ============ -->
+	<script defer>
+		// ============ DARK MODE ============
+		const darkModeToggle = document.getElementById('dark-mode-toggle');
+		const htmlElement = document.documentElement;
+		
+		function initDarkMode() {
+			const isDarkMode = localStorage.getItem('tutofacile_dark_mode') === 'true';
+			if(isDarkMode) {
+				htmlElement.classList.add('dark-mode');
+				if(darkModeToggle) darkModeToggle.textContent = '🌙';
+			} else {
+				htmlElement.classList.remove('dark-mode');
+				if(darkModeToggle) darkModeToggle.textContent = '💡';
+			}
+		}
+
+		if(darkModeToggle) {
+			initDarkMode();
+			darkModeToggle.addEventListener('click', () => {
+				const isCurrentlyDark = htmlElement.classList.toggle('dark-mode');
+				localStorage.setItem('tutofacile_dark_mode', isCurrentlyDark);
+				darkModeToggle.textContent = isCurrentlyDark ? '🌙' : '💡';
+			});
+		}
+
+		// ============ LANGUAGE SWITCHER (FIXED) ============
+		const langBtns = document.querySelectorAll('.lang-btn');
+		
+		langBtns.forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				e.preventDefault();
+				const lang = btn.getAttribute('data-lang');
+				localStorage.setItem('siteLang', lang);
+				
+				// Mettre à jour tous les boutons
+				langBtns.forEach(b => b.classList.remove('active'));
+				btn.classList.add('active');
+				
+				// Mettre à jour les traductions
+				if(window.updateAllTranslations) {
+					updateAllTranslations();
+				}
+			});
+		});
+
+		// ============ VARIABLES GLOBALES ============
+		let currentFilter = 'all';
+		let allTutos = [];
+		let dataLoaded = false;
+
+		// ============ GÉNÈRE UNE CARTE ============
+		function generateTutoCard(t) {
+			if(!t || !t.titre) return '';
+			const url = t.url || ('tuto-viewer.html?id=' + t.id);
+			const img = t.image || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22200%22%3E%3Crect width=%22400%22 height=%22200%22 fill=%22%23e0e0e0%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23999%22%3ETutoriel%3C/text%3E%3C/svg%3E';
+			const titre = String(t.titre || '').replace(/"/g, '&quot;').substring(0, 60);
+			const desc = String(t.description || '').substring(0, 60).replace(/"/g, '&quot;');
+			return '<a class="card tuto-card" href="' + url + '" style="cursor:pointer;"><div class="tuto-card-image"><img src="' + img + '" alt="' + titre + '" width="400" height="200" loading="lazy" /><span class="difficulty-badge">' + (t.difficulty || 'N/A') + '</span></div><div class="card-body"><h3>' + titre + '</h3><p>' + desc + '...</p><div class="tuto-card-meta"><small>' + (t.categorie || '') + '</small><small>⏱️ ' + (t.time || '?') + ' min</small></div></div></a>';
+		}
+
+		// ============ CHARGE LES TUTORIELS ============
+		async function loadLatestTutos() {
+			if(dataLoaded) return;
+			dataLoaded = true;
+			
+			try {
+				const res = await fetch('data.json?t=' + Date.now());
+				if(!res.ok) throw new Error('HTTP ' + res.status);
+				
+				const tutos = await res.json();
+				const mods = JSON.parse(localStorage.getItem('tutofacile_mods') || '{}');
+				const custom = JSON.parse(localStorage.getItem('customTutos') || '[]');
+				const contribs = JSON.parse(localStorage.getItem('tutofacile_contributions') || '[]');
+				allTutos = contribs.concat(custom).concat(tutos.map(t => mods[t.id] ? Object.assign({}, t, mods[t.id]) : t));
+				displayTutos();
+			} catch(e) {
+				const custom = JSON.parse(localStorage.getItem('customTutos') || '[]');
+				const contribs = JSON.parse(localStorage.getItem('tutofacile_contributions') || '[]');
+				allTutos = contribs.concat(custom);
+				displayTutos();
+			}
+		}
+
+		// ============ AFFICHE LES TUTOS ============
+		window.displayTutos = function() {
+			let filtered = allTutos;
+			if(currentFilter !== 'all') {
+				filtered = allTutos.filter(t => t.difficulty === currentFilter);
+			}
+			const latest = document.getElementById('latest-tutos-grid');
+			const popular = document.getElementById('popular-tutos-grid');
+			
+			const html = filtered.slice(0, 12).map(generateTutoCard).join('');
+			if(latest) latest.innerHTML = html || '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">Aucun tuto</p>';
+			
+			const htmlPopular = filtered.filter(t => t.time && t.description && t.image).slice(0, 8).map(generateTutoCard).join('');
+			if(popular) popular.innerHTML = htmlPopular || '<p style="grid-column:1/-1;text-align:center;padding:40px;color:#999;">Aucun tuto</p>';
+		};
+
+		// ============ FILTRE PAR DIFFICULTÉ ============
+		window.setFilter = function(f) {
+			currentFilter = f;
+			document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+			if(event && event.target) {
+				event.target.classList.add('active');
+			}
+			displayTutos();
+		};
+
+		// ============ CHARGE AU DÉMARRAGE ============
+		if(document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', loadLatestTutos);
+		} else {
+			loadLatestTutos();
+		}
+
+		// ============ MENU MOBILE ============
+		const navToggle = document.getElementById('nav-toggle');
+		const mainNav = document.getElementById('main-nav');
+		if(navToggle && mainNav) {
+			navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+			document.addEventListener('click', (e) => {
+				if(!mainNav.contains(e.target) && e.target !== navToggle) mainNav.classList.remove('open');
+			});
+		}
+
+		// ============ LOAD TRENDING TUTOS ============
+		async function loadTrendingTutos() {
+			try {
+				const response = await fetch('data.json');
+				const data = await response.json();
+				const trending = data.slice(0, 4); // Top 4
+				
+				const grid = document.getElementById('trending-grid');
+				if(!grid) return;
+				
+				const lang = localStorage.getItem('siteLang') || 'fr';
+				grid.innerHTML = trending.map(tuto => `
+					<a href="/pages/${tuto.id}.html" class="card" style="text-decoration: none; display: flex; flex-direction: column; gap: 12px;">
+						<div style="font-size: 3rem; line-height: 1;">${tuto.emoji || '📚'}</div>
+						<h3 style="margin: 0; color: var(--primary); font-size: 1.1rem;">${tuto.titre}</h3>
+						<p style="margin: 0; color: var(--text-light); font-size: 0.85rem; flex-grow: 1;">${tuto.description?.substring(0, 60)}...</p>
+						<div style="display: flex; gap: 8px; justify-content: center; font-size: 0.85rem; color: var(--text-light);">
+							<span>${tuto.categorie}</span>
+							<span>•</span>
+							<span>${tuto.time} min</span>
+						</div>
+					</a>
+				`).join('');
+			} catch(e) {
+				console.log('Trending load failed:', e);
+			}
+		}
+		
+		// Load trending on startup
+		if(document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', loadTrendingTutos);
+		} else {
+			loadTrendingTutos();
+		}
+
+		// ============ CHECK USER AUTHENTICATION ============
+		const currentUser = JSON.parse(localStorage.getItem('tutofacile_current_user') || 'null');
+		if(currentUser) {
+			const dashboardLink = document.getElementById('dashboard-link');
+			const loginLink = document.querySelector('a[data-i18n="login"]');
+			if(dashboardLink && loginLink) {
+				dashboardLink.style.display = 'inline-block';
+				loginLink.textContent = '👤 ' + currentUser.username + ' (Logout)';
+				loginLink.href = '#logout';
+				loginLink.onclick = function(e) {
+					e.preventDefault();
+					localStorage.removeItem('tutofacile_current_user');
+					window.location.href = '/';
+				};
+			}
+		}
+
+		// ============ TUTOFACILE 2.1 EVENT RECORDING FUNCTIONS ============
+		// These functions expose module APIs globally for event tracking
+		
+		window.recordTutoView = function(tutoId, title, category) {
+			try {
+				if (window.analyticsEngine) {
+					window.analyticsEngine.trackTutoView(tutoId, title, category);
+				}
+				if (window.recommendationEngine) {
+					window.recommendationEngine.trackView(tutoId);
+				}
+				if (window.gamificationEngine) {
+					window.gamificationEngine.recordAction('view_tutorial', { tutoId, title });
+				}
+			} catch(e) {
+				console.warn('Error recording tuto view:', e);
+			}
+		};
+
+		window.recordTutoRating = function(tutoId, rating, title) {
+			try {
+				if (window.analyticsEngine) {
+					window.analyticsEngine.trackTutoRating(tutoId, rating, title);
+				}
+				if (window.recommendationEngine) {
+					window.recommendationEngine.trackRating(tutoId, rating);
+				}
+				if (window.gamificationEngine) {
+					window.gamificationEngine.recordAction('rate_tutorial', { tutoId, rating });
+				}
+				if (window.notificationManager) {
+					window.notificationManager.success(`Merci pour votre note de ${rating}/5!`);
+				}
+			} catch(e) {
+				console.warn('Error recording tuto rating:', e);
+			}
+		};
+
+		window.recordFavorite = function(tutoId, isFavorited, title) {
+			try {
+				if (window.analyticsEngine) {
+					window.analyticsEngine.trackFavorite(tutoId, isFavorited, title);
+				}
+				if (window.gamificationEngine) {
+					window.gamificationEngine.recordAction('favorite_tutorial', { tutoId, isFavorited });
+				}
+				if (window.notificationManager && isFavorited) {
+					window.notificationManager.success(`✅ ${title} ajouté aux favoris!`);
+				}
+			} catch(e) {
+				console.warn('Error recording favorite:', e);
+			}
+		};
+
+		window.recordSearch = function(query, resultsCount, filters) {
+			try {
+				if (window.analyticsEngine) {
+					window.analyticsEngine.trackSearch(query, resultsCount, filters);
+				}
+				if (window.gamificationEngine) {
+					window.gamificationEngine.recordAction('search', { query, resultsCount });
+				}
+			} catch(e) {
+				console.warn('Error recording search:', e);
+			}
+		};
+
+		window.recordCategoryVisit = function(category, tutoCount) {
+			try {
+				if (window.analyticsEngine) {
+					window.analyticsEngine.trackEvent('category_visit', { category, tutoCount });
+				}
+				if (window.gamificationEngine) {
+					window.gamificationEngine.recordAction('category_visit', { category });
+				}
+			} catch(e) {
+				console.warn('Error recording category visit:', e);
+			}
+		};
+
+		window.storeAllTutos = function(tutos) {
+			try {
+				if (window.recommendationEngine) {
+					window.recommendationEngine.analyzePreferences();
+				}
+				localStorage.setItem('tutofacile_all_tutos', JSON.stringify(tutos));
+			} catch(e) {
+				console.warn('Error storing tutos:', e);
+			}
+		};
+
+		// ============ TUTOFACILE 2.1 API STATUS CHECK ============
+		window.getTutoFacileStatus = function() {
+			const status = {
+				configSystem: typeof window.TUTOFACILE !== 'undefined',
+				advancedSearch: typeof window.SearchEngine !== 'undefined',
+				analyticsEngine: typeof window.AnalyticsEngine !== 'undefined',
+				recommendationEngine: typeof window.RecommendationEngine !== 'undefined',
+				notificationManager: typeof window.NotificationManager !== 'undefined',
+				gamificationEngine: typeof window.GamificationEngine !== 'undefined',
+				timestamp: new Date().toISOString(),
+				modulesLoaded: 0
+			};
+			
+			status.modulesLoaded = Object.values(status).filter(v => v === true).length - 1;
+			
+			console.log('✅ TutoFacile 2.1 Status:', status);
+			return status;
+		};
+
+		// Auto-check on page load
+		window.addEventListener('load', function() {
+			setTimeout(() => {
+				if (window.getTutoFacileStatus) {
+					window.getTutoFacileStatus();
+				}
+			}, 2000);
+		});
+	</script>
+
+	<!-- ============ CROSS-PROJECT PROMOTIONS ============ -->
+	<script src="promo-injector.js" defer></script>
+
+	<!-- ============ PERFORMANCE OPTIMIZATION ============ -->
+	<script src="performance-optimization.js" defer></script>
+
+	<!-- ============ GOOGLE ANALYTICS (ASYNC, LOADED AT END) ============ -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'GA_MEASUREMENT_ID');
+	</script>
+
+	<!-- Lazy load non-critical scripts on interaction -->
+	<script>
+	  window.addEventListener('click', () => {
+	    // Lazy load when user interacts
+	    document.querySelectorAll('script[data-loading="lazy"]').forEach(script => {
+	      if (!script.dataset.loaded) {
+	        script.dataset.loaded = true;
+	        // Script already in DOM with defer, will execute
+	      }
+	    });
+	  }, { once: true });
+	</script>
+
+</body>
+</html>

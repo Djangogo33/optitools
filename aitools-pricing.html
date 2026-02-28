@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AITools - Plans & Dons | TutoFacile</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .plan-card.pro {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+        
+        .plan-card.pro::before {
+            content: '⭐ RECOMMANDÉ';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .plan-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .plan-price small {
+            font-size: 0.4em;
+            color: #666;
+        }
+        
+        .plan-period {
+            color: #999;
+            font-size: 0.95em;
+            margin-bottom: 30px;
+        }
+        
+        .plan-features {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .plan-features li {
+            list-style: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .plan-features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .plan-features li.disabled::before {
+            content: '✗';
+            color: #ccc;
+        }
+        
+        .plan-features li.disabled {
+            color: #ccc;
+        }
+        
+        .plan-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s;
+        }
+        
+        .plan-button.free {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .plan-button.free:hover {
+            background: #e0e0e0;
+        }
+        
+        .plan-button.pro {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .plan-button.pro:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .donations-section {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .donations-section h2 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2em;
+        }
+        
+        .donation-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .donation-btn {
+            padding: 15px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .donation-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .features-comparison {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            overflow-x: auto;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background: #f9f9f9;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .comparison-table td {
+            color: #666;
+        }
+        
+        .comparison-table .feature {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .check {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .cross {
+            color: #ef4444;
+        }
+        
+        .faq {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        
+        .faq h3 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .faq-answer {
+            color: #666;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding: 20px;
+        }
+        
+        .link-back {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .link-back:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .plan-card.pro {
+                transform: scale(1);
+            }
+            
+            .donations-section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="link-back">← Retour à TutoFacile</a>
+        
+        <header>
+            <h1>
+                <span style="font-size: 1.2em;">⚡</span> AITools
+            </h1>
+            <p>Suite d'outils IA pour détecter et nettoyer le contenu généré par l'IA</p>
+        </header>
+        
+        <!-- Plans -->
+        <div class="pricing-grid">
+            <!-- Plan Gratuit -->
+            <div class="plan-card">
+                <div class="plan-name">Gratuit</div>
+                <div class="plan-price">0<small>€</small></div>
+                <div class="plan-period">Pour toujours</div>
+                <ul class="plan-features">
+                    <li>5 analyses par jour</li>
+                    <li>Détection basique de contenu IA</li>
+                    <li>Blocage de publicités</li>
+                    <li class="disabled">Anonymisation avancée</li>
+                    <li class="disabled">Analyses illimitées</li>
+                    <li class="disabled">Support prioritaire</li>
+                </ul>
+                <button class="plan-button free" onclick="selectPlan('free')">Commencer</button>
+            </div>
+            
+            <!-- Plan Pro -->
+            <div class="plan-card pro">
+                <div class="plan-name">Pro</div>
+                <div class="plan-price">4<small>.99€</small></div>
+                <div class="plan-period">Par mois</div>
+                <ul class="plan-features">
+                    <li>Analyses <strong>illimitées</strong></li>
+                    <li>Détection avancée d'IA</li>
+                    <li>Blocage premium de publicités</li>
+                    <li>Anonymisation complète (emails, téléphones, noms)</li>
+                    <li>Générateur de prompts Weaver</li>
+                    <li>Support prioritaire</li>
+                </ul>
+                <button class="plan-button pro" onclick="upgradeToPro()">Passer à Pro</button>
+            </div>
+            
+            <!-- Plan Entreprise -->
+            <div class="plan-card">
+                <div class="plan-name">Entreprise</div>
+                <div class="plan-price">?</div>
+                <div class="plan-period">Devis personnalisé</div>
+                <ul class="plan-features">
+                    <li>Analyses illimitées</li>
+                    <li>Détection d'IA personnalisée</li>
+                    <li>API d'intégration</li>
+                    <li>Support 24/7 dédié</li>
+                    <li>Formation d'équipe</li>
+                    <li>Contrats SLA</li>
+                </ul>
+                <button class="plan-button free" onclick="contactEnterprise()">Nous contacter</button>
+            </div>
+        </div>
+        
+        <!-- Donations -->
+        <div class="donations-section">
+            <h2>💝 Soutenir AITools</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Aimez AITools? Faites un don pour nous aider à continuer le développement!
+            </p>
+            <div class="donation-buttons">
+                <button class="donation-btn" onclick="donate(5)">Donner 5€</button>
+                <button class="donation-btn" onclick="donate(10)">Donner 10€</button>
+                <button class="donation-btn" onclick="donate(25)">Donner 25€</button>
+                <button class="donation-btn" onclick="donate(50)">Donner 50€</button>
+                <button class="donation-btn" onclick="donate('custom')">Montant personnalisé</button>
+            </div>
+            <p style="text-align: center; color: #999; font-size: 0.9em;">
+                Les dons sont sécurisés et traités via Stripe
+            </p>
+        </div>
+        
+        <!-- Comparaison -->
+        <div class="features-comparison">
+            <h2 style="margin-bottom: 30px; color: #333;">Comparaison des plans</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Fonctionnalité</th>
+                        <th>Gratuit</th>
+                        <th>Pro</th>
+                        <th>Entreprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature">Analyses par jour</td>
+                        <td>5</td>
+                        <td class="check">∞</td>
+                        <td class="check">∞</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">Détection d'IA</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓ Avancée</td>
+                        <td class="check">✓ Personnalisée</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">Blocage de publicités</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓ Premium</td>
+                        <td class="check">✓ Premium</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">Anonymisation</td>
+                        <td class="cross">✗</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">Weaver (Prompts)</td>
+                        <td class="cross">✗</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">API d'intégration</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td class="feature">Support</td>
+                        <td>Communauté</td>
+                        <td class="check">Prioritaire</td>
+                        <td class="check">24/7 Dédié</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- FAQ -->
+        <div class="faq">
+            <h3>Questions Fréquentes</h3>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ❓ Comment puis-je annuler mon abonnement Pro?
+                </div>
+                <div class="faq-answer">
+                    Vous pouvez annuler votre abonnement à tout moment depuis vos paramètres AITools ou en contactant djangogo33.tdac@gmail.com. Vous n'aurez pas à payer la période suivante.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ❓ La détection d'IA est-elle fiable à 100%?
+                </div>
+                <div class="faq-answer">
+                    Aucun système n'est 100% fiable, mais AITools utilise les modèles les plus avancés. Nous continuons à améliorer notre détection. Vous pouvez nous signaler des faux positifs.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ❓ Mes données sont-elles sécurisées?
+                </div>
+                <div class="faq-answer">
+                    Oui! Nous utilisons HTTPS et ne stockons pas vos données personnelles. Les analyses sont traitées localement dans votre navigateur autant que possible.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ❓ Puis-je utiliser AITools en mode hors ligne?
+                </div>
+                <div class="faq-answer">
+                    La plupart des fonctionnalités fonctionnent hors ligne. Certaines analyses avancées nécessitent une connexion internet.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    ❓ Comment installer AITools?
+                </div>
+                <div class="faq-answer">
+                    Téléchargez l'extension depuis le Chrome Web Store en cherchant "AITools". Installez-la en un clic, puis ouvrez votre navigateur pour la trouver en haut à droite.
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>AITools © 2026 - Créé par TutoFacile</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Conditions</a> • 
+                <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Confidentialité</a> • 
+                <a href="mailto:djangogo33.tdac@gmail.com" style="color: rgba(255,255,255,0.7); text-decoration: none;">Support</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        function selectPlan(plan) {
+            alert(`Plan ${plan} sélectionné! (À intégrer avec le backend)`);
+        }
+        
+        function upgradeToPro() {
+            // Cela s'ouvrira depuis la popup de l'extension
+            window.location.href = 'https://tutofacile.com/aitools-pricing#pro';
+        }
+        
+        function contactEnterprise() {
+            window.location.href = 'mailto:djangogo33.tdac@gmail.com?subject=AITools Enterprise';
+        }
+        
+        function donate(amount) {
+            if (amount === 'custom') {
+                const customAmount = prompt('Montant du don (en €):', '20');
+                if (customAmount) {
+                    // Intégration Stripe
+                    alert(`Don de ${customAmount}€ - À intégrer avec Stripe`);
+                }
+            } else {
+                alert(`Don de ${amount}€ - À intégrer avec Stripe`);
+            }
+        }
+        
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+    </script>
+
+    <!-- ============ CROSS-PROJECT PROMOTIONS ============ -->
+    <script src="promo-injector.js"></script>
+</body>
+</html>

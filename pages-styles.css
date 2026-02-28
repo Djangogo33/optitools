@@ -1,0 +1,339 @@
+/* Fichier CSS pour les pages de tutoriels */
+
+/* Table des matières */
+.toc {
+	background: #f9f9f9;
+	padding: 16px;
+	border-radius: 8px;
+	border-left: 4px solid var(--primary);
+	margin: 24px 0;
+}
+
+.toc h3 {
+	margin-top: 0;
+	color: var(--primary);
+}
+
+.toc ol {
+	margin: 0;
+	padding-left: 20px;
+	color: #555;
+}
+
+.toc li {
+	margin-bottom: 8px;
+	line-height: 1.6;
+}
+
+.toc a {
+	color: var(--primary);
+	text-decoration: none;
+	transition: opacity 0.18s;
+}
+
+.toc a:hover {
+	opacity: 0.8;
+	text-decoration: underline;
+}
+
+/* Partage social */
+.share-buttons {
+	background: #f0f0f0;
+	padding: 16px;
+	border-radius: 8px;
+	margin: 24px 0;
+	text-align: center;
+}
+
+.share-buttons p {
+	margin: 0 0 12px;
+	color: #666;
+}
+
+.share-buttons-group {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Rating */
+.rating-box {
+	background: #fff9c4;
+	padding: 16px;
+	border-radius: 8px;
+	border-left: 4px solid #FBC02D;
+	margin: 24px 0;
+}
+
+.rating-box h3 {
+	margin-top: 0;
+}
+
+.rating-stars {
+	display: flex;
+	gap: 8px;
+	margin: 12px 0;
+}
+
+.rating-star {
+	font-size: 2rem;
+	background: 0;
+	border: 0;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: opacity 0.18s;
+}
+
+.rating-star:hover {
+	opacity: 1;
+}
+
+/* Comments */
+.comments-section {
+	margin-top: 32px;
+	padding-top: 24px;
+	border-top: 2px solid #ddd;
+}
+
+.comments-list {
+	margin-bottom: 24px;
+}
+
+.comment-item {
+	background: white;
+	padding: 12px;
+	border-radius: 6px;
+	margin-bottom: 12px;
+	border-left: 4px solid var(--primary);
+}
+
+.comment-author {
+	margin: 0 0 6px;
+	font-weight: 600;
+	color: var(--text);
+}
+
+.comment-text {
+	margin: 0;
+	color: #555;
+	line-height: 1.6;
+}
+
+.comment-date {
+	color: #999;
+	margin-top: 6px;
+	display: block;
+	font-size: 0.85rem;
+}
+
+.comment-form-group {
+	margin-bottom: 16px;
+}
+
+.comment-form-group label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+}
+
+.comment-form-group input,
+.comment-form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	font-family: inherit;
+}
+
+/* ============ TUTORIAL PAGE SPECIFIC STYLES ============ */
+
+/* ============ TUTORIAL CONTENT CONTAINER ============ */
+.tuto-content {
+	max-width: 800px;
+	margin: 40px auto;
+	padding: 20px;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ============ TUTORIAL HEADER ============ */
+.tuto-header {
+	text-align: center;
+	margin-bottom: 30px;
+	border-bottom: 2px solid #eee;
+	padding-bottom: 20px;
+}
+
+.tuto-header h1 {
+	margin: 0 0 12px;
+	font-size: 2rem;
+}
+
+.tuto-meta {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	flex-wrap: wrap;
+	font-size: 0.95rem;
+	color: #666;
+}
+
+.tuto-meta span {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+/* ============ TUTORIAL BLOCKS ============ */
+.block {
+	margin: 30px 0;
+	padding: 20px;
+	background: #fafafa;
+	border-radius: 8px;
+	border-left: 4px solid var(--primary);
+}
+
+.block h2 {
+	margin-top: 0;
+	margin-bottom: 16px;
+	color: var(--primary);
+}
+
+.block h3 {
+	margin: 20px 0 12px;
+	font-size: 1.1rem;
+	color: #333;
+}
+
+.block ul, .block ol {
+	margin: 12px 0;
+	padding-left: 20px;
+	color: #555;
+}
+
+.block li {
+	margin: 8px 0;
+	line-height: 1.6;
+}
+
+/* ============ CODE BLOCKS ============ */
+.block pre {
+	background: #272822;
+	color: #f8f8f2;
+	padding: 16px;
+	border-radius: 6px;
+	overflow-x: auto;
+	margin: 12px 0;
+}
+
+.block code {
+	font-family: 'Courier New', monospace;
+	font-size: 0.9rem;
+}
+
+/* ============ RATING SECTION ============ */
+#rating {
+	display: flex;
+	gap: 8px;
+	margin: 12px 0;
+	justify-content: center;
+}
+
+#rating button {
+	font-size: 2rem;
+	background: 0;
+	border: 0;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: opacity 0.2s;
+}
+
+#rating button:hover {
+	opacity: 1;
+}
+
+/* ============ COMMENTS SECTION ============ */
+#comments-list {
+	margin: 20px 0;
+}
+
+.comment-item {
+	background: #f5f5f5;
+	padding: 12px;
+	border-radius: 6px;
+	margin-bottom: 12px;
+	border-left: 4px solid var(--primary);
+}
+
+.comment-item p {
+	margin: 0;
+	color: #333;
+}
+
+.comment-item small {
+	color: #999;
+	display: block;
+	margin-top: 6px;
+}
+
+/* ============ COMMENT FORM ============ */
+#comment-form {
+	margin-top: 20px;
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 8px;
+}
+
+#comment-form div {
+	margin-bottom: 12px;
+}
+
+#comment-form label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 6px;
+	color: #333;
+}
+
+#comment-form input,
+#comment-form textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	font-family: inherit;
+	font-size: 0.95rem;
+}
+
+#comment-form button {
+	background: var(--primary);
+	color: white;
+	padding: 10px 20px;
+	border: 0;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+#comment-form button:hover {
+	opacity: 0.9;
+}
+
+/* ============ MOBILE RESPONSIVENESS ============ */
+@media (max-width: 768px) {
+	.tuto-content {
+		margin: 20px 0;
+		padding: 16px;
+	}
+
+	.tuto-header h1 {
+		font-size: 1.5rem;
+	}
+
+	.tuto-meta {
+		flex-direction: column;
+		gap: 8px;
+	}
+}
