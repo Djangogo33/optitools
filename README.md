@@ -22,7 +22,7 @@
 ### Système Complet ✅
 - 🔐 **Authentification** - Register/Login persistant
 - 📊 **Dashboard** - Voir tous ses tutoriels
-- 🎯 **Admin Panel** - Gestion complète (admin/paul1810)
+- 🎯 **Admin Panel** - Gestion complète
 - 📱 **Responsive** - 100% mobile-friendly
 
 ---
@@ -93,8 +93,6 @@ Persist: Yes! (Survit fermeture navigateur)
 ### Admin Panel
 ```
 URL: /admin.html
-Username: admin
-Password: paul1810
 Permissions: CRUD tous les tutoriels
 ```
 
@@ -268,8 +266,6 @@ Fait ces 10 tests:
 ---
 
 ## 📖 Documentation Technique
-- Username: `admin`
-- Password: `paul1810`
 
 **Create New User:**
 - Aller sur Register pour créer un compte utilisateur
