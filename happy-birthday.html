@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carte de Vœux</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=Quicksand:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-800px) rotate(720deg); opacity: 0; }
+    }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.3); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.2); }
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+      border-radius: 2px;
+    }
+    .card-container { animation: slideUp 0.8s ease-out; }
+    .sparkle-star { animation: sparkle 2s ease-in-out infinite; }
+    .shimmer-text {
+      background-size: 200% auto;
+      animation: shimmer 3s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .heart-beat { animation: heartBeat 1.5s ease-in-out infinite; }
+    .bounce-in { animation: bounceIn 0.6s ease-out; }
+    .creator-panel { backdrop-filter: blur(16px); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full w-full overflow-auto" style="font-family: 'Quicksand', sans-serif;"><!-- CREATOR PANEL -->
+   <div id="creatorPanel" class="h-full w-full flex items-center justify-center p-4" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);">
+    <div class="creator-panel w-full max-w-lg rounded-3xl p-8 space-y-6" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
+     <div class="text-center space-y-2">
+      <div class="text-4xl">
+       🎨
+      </div>
+      <h1 class="text-2xl font-bold" style="font-family: 'Playfair Display', serif; color: #f8b4d9;">Créer une carte</h1>
+      <p class="text-sm" style="color: rgba(255,255,255,0.5);">Personnalisez chaque détail</p>
+     </div><!-- Nom -->
+     <div class="space-y-1"><label class="text-xs font-semibold tracking-wider uppercase" style="color: rgba(255,255,255,0.4);">Destinataire</label> <input id="inputName" type="text" value="Emma" placeholder="Nom..." class="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all focus:ring-2" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.1); --tw-ring-color: #a78bfa;">
+     </div><!-- Célébration -->
+     <div class="space-y-1"><label class="text-xs font-semibold tracking-wider uppercase" style="color: rgba(255,255,255,0.4);">Célébration</label>
+      <div id="celebBtns" class="grid grid-cols-3 gap-2"><button data-celeb="birthday" class="celeb-btn active rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(167,139,250,0.3); color: #a78bfa; border: 1px solid rgba(167,139,250,0.4);">🎂 Anniversaire</button> <button data-celeb="newyear" class="celeb-btn rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1);">🎆 Nouvel An</button> <button data-celeb="congrats" class="celeb-btn rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1);">🎉 Félicitations</button>
+      </div>
+     </div><!-- Palette -->
+     <div class="space-y-1"><label class="text-xs font-semibold tracking-wider uppercase" style="color: rgba(255,255,255,0.4);">Palette</label>
+      <div id="paletteBtns" class="grid grid-cols-3 gap-2"><button data-palette="bluerose" class="pal-btn active rounded-xl py-2 text-xs font-semibold flex items-center justify-center gap-1 transition-all" style="background: rgba(167,139,250,0.3); border: 1px solid rgba(167,139,250,0.4); color: #a78bfa;"> <span class="w-3 h-3 rounded-full inline-block" style="background: linear-gradient(135deg,#6366f1,#f472b6);"></span> Bleu-Rose </button> <button data-palette="sunset" class="pal-btn rounded-xl py-2 text-xs font-semibold flex items-center justify-center gap-1 transition-all" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);"> <span class="w-3 h-3 rounded-full inline-block" style="background: linear-gradient(135deg,#f59e0b,#ef4444);"></span> Coucher </button> <button data-palette="forest" class="pal-btn rounded-xl py-2 text-xs font-semibold flex items-center justify-center gap-1 transition-all" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);"> <span class="w-3 h-3 rounded-full inline-block" style="background: linear-gradient(135deg,#10b981,#3b82f6);"></span> Forêt </button>
+      </div>
+     </div><!-- Message -->
+     <div class="space-y-1"><label class="text-xs font-semibold tracking-wider uppercase" style="color: rgba(255,255,255,0.4);">Message</label> <textarea id="inputMsg" rows="2" class="w-full rounded-xl px-4 py-3 text-sm outline-none resize-none transition-all focus:ring-2" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.1); --tw-ring-color: #a78bfa;" placeholder="Votre message...">Que cette journée soit remplie de bonheur ✨</textarea>
+     </div><!-- Animation -->
+     <div class="space-y-1"><label class="text-xs font-semibold tracking-wider uppercase" style="color: rgba(255,255,255,0.4);">Style d'animation</label>
+      <div id="animBtns" class="grid grid-cols-3 gap-2"><button data-anim="confetti" class="anim-btn active rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(167,139,250,0.3); color: #a78bfa; border: 1px solid rgba(167,139,250,0.4);">🎊 Confettis</button> <button data-anim="sparkles" class="anim-btn rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1);">✨ Étincelles</button> <button data-anim="hearts" class="anim-btn rounded-xl py-2 text-xs font-semibold transition-all" style="background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.1);">💕 Cœurs</button>
+      </div>
+     </div><button id="btnCreate" class="w-full rounded-2xl py-4 font-bold text-white text-sm tracking-wide transition-all hover:scale-[1.02] active:scale-95" style="background: linear-gradient(135deg, #6366f1, #a78bfa, #f472b6);"> Créer ma carte ✨ </button>
+    </div>
+   </div><!-- CARD VIEW -->
+   <div id="cardView" class="h-full w-full hidden flex-col items-center justify-center p-4 relative overflow-hidden">
+    <div id="confettiLayer" class="absolute inset-0 pointer-events-none z-10"></div><!-- SVG Sparkles background -->
+    <svg id="svgSparkles" class="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="card-container relative z-20 w-full max-w-md">
+     <div id="card" class="rounded-3xl p-8 text-center space-y-5 cursor-pointer transition-all hover:scale-[1.01]" style="background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 60px rgba(0,0,0,0.3);">
+      <div id="cardEmoji" class="text-6xl bounce-in">
+       🎂
+      </div>
+      <div class="space-y-2">
+       <p id="cardGreeting" class="text-sm font-semibold tracking-widest uppercase" style="color: rgba(255,255,255,0.6);">Joyeux Anniversaire</p>
+       <h2 id="cardName" class="text-5xl font-black shimmer-text" style="font-family: 'Playfair Display', serif; background-image: linear-gradient(90deg, #6366f1, #f472b6, #6366f1);">Emma</h2>
+      </div><!-- Decorative SVG -->
+      <svg width="120" height="8" viewbox="0 0 120 8" class="mx-auto" style="opacity: 0.5;"><path d="M0 4 Q30 0 60 4 Q90 8 120 4" stroke="currentColor" fill="none" stroke-width="2" style="color: rgba(255,255,255,0.4);" />
+      </svg>
+      <p id="cardMsg" class="text-base leading-relaxed" style="color: rgba(255,255,255,0.8);">Que cette journée soit remplie de bonheur ✨</p>
+      <div id="interactiveZone" class="pt-2"><button id="btnSurprise" class="rounded-2xl px-6 py-3 text-sm font-semibold transition-all hover:scale-105 active:scale-95" style="background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2);"> Cliquez pour une surprise 🎁 </button>
+       <div id="surpriseContent" class="hidden mt-4 bounce-in">
+        <div class="text-5xl heart-beat">
+         🎉
+        </div>
+        <p class="text-sm mt-2" style="color: rgba(255,255,255,0.7);">Vous êtes extraordinaire !</p>
+       </div>
+      </div>
+     </div><!-- Share buttons -->
+     <div class="flex gap-3 mt-6 justify-center flex-wrap"><button id="btnCopyLink" class="flex items-center gap-2 rounded-2xl px-5 py-3 text-xs font-semibold transition-all hover:scale-105 active:scale-95" style="background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15);"> <i data-lucide="link" style="width:14px; height:14px;"></i> Copier le lien </button> <a id="btnWhatsapp" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-2xl px-5 py-3 text-xs font-semibold transition-all hover:scale-105 active:scale-95" style="background: rgba(37,211,102,0.2); color: #25d366; border: 1px solid rgba(37,211,102,0.3);"> <i data-lucide="message-circle" style="width:14px; height:14px;"></i> WhatsApp </a> <a id="btnEmail" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-2xl px-5 py-3 text-xs font-semibold transition-all hover:scale-105 active:scale-95" style="background: rgba(99,102,241,0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.3);"> <i data-lucide="mail" style="width:14px; height:14px;"></i> Email </a>
+     </div><button id="btnBack" class="flex items-center gap-2 mx-auto mt-4 text-xs transition-all hover:scale-105" style="color: rgba(255,255,255,0.4);"> <i data-lucide="arrow-left" style="width:12px; height:12px;"></i> Nouvelle carte </button>
+    </div><!-- Toast -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-2xl px-6 py-3 text-sm font-semibold transition-all opacity-0 translate-y-4 pointer-events-none z-50" style="background: rgba(16,185,129,0.9); color: #fff;">
+     Lien copié !
+    </div>
+   </div>
+  </div>
+  <script>
+  const PALETTES = {
+    bluerose: { bg: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 30%, #4c1d95 60%, #701a75 100%)', shimmer: 'linear-gradient(90deg, #6366f1, #f472b6, #6366f1)', confetti: ['#6366f1','#a78bfa','#f472b6','#f9a8d4','#c4b5fd','#818cf8'], accent: '#a78bfa' },
+    sunset: { bg: 'linear-gradient(135deg, #451a03 0%, #7c2d12 30%, #991b1b 60%, #7f1d1d 100%)', shimmer: 'linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b)', confetti: ['#f59e0b','#f97316','#ef4444','#fbbf24','#fb923c','#fca5a5'], accent: '#f59e0b' },
+    forest: { bg: 'linear-gradient(135deg, #022c22 0%, #064e3b 30%, #0f4c75 60%, #1e3a5f 100%)', shimmer: 'linear-gradient(90deg, #10b981, #3b82f6, #10b981)', confetti: ['#10b981','#34d399','#3b82f6','#60a5fa','#6ee7b7','#93c5fd'], accent: '#10b981' }
+  };
+  const CELEBS = {
+    birthday: { emoji: '🎂', greeting: 'Joyeux Anniversaire' },
+    newyear: { emoji: '🎆', greeting: 'Bonne Année' },
+    congrats: { emoji: '🏆', greeting: 'Félicitations' }
+  };
+
+  let state = { celeb: 'birthday', palette: 'bluerose', anim: 'confetti' };
+
+  // Toggle button groups
+  function setupBtnGroup(selector, stateKey) {
+    document.querySelectorAll(selector).forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll(selector).forEach(b => {
+          b.style.background = 'rgba(255,255,255,0.05)';
+          b.style.color = 'rgba(255,255,255,0.5)';
+          b.style.borderColor = 'rgba(255,255,255,0.1)';
+        });
+        btn.style.background = 'rgba(167,139,250,0.3)';
+        btn.style.color = '#a78bfa';
+        btn.style.borderColor = 'rgba(167,139,250,0.4)';
+        state[stateKey] = btn.dataset[stateKey === 'celeb' ? 'celeb' : stateKey === 'palette' ? 'palette' : 'anim'];
+      });
+    });
+  }
+  setupBtnGroup('.celeb-btn', 'celeb');
+  setupBtnGroup('.pal-btn', 'palette');
+  setupBtnGroup('.anim-btn', 'anim');
+
+  // Create card
+  document.getElementById('btnCreate').addEventListener('click', () => {
+    const name = document.getElementById('inputName').value.trim() || 'Emma';
+    const msg = document.getElementById('inputMsg').value.trim() || 'Que cette journée soit remplie de bonheur ✨';
+    const pal = PALETTES[state.palette];
+    const cel = CELEBS[state.celeb];
+
+    // Apply to card
+    const cardView = document.getElementById('cardView');
+    cardView.style.background = pal.bg;
+    document.getElementById('cardName').textContent = name;
+    document.getElementById('cardName').style.backgroundImage = pal.shimmer;
+    document.getElementById('cardMsg').textContent = msg;
+    document.getElementById('cardEmoji').textContent = cel.emoji;
+    document.getElementById('cardGreeting').textContent = cel.greeting;
+
+    // Reset surprise
+    document.getElementById('surpriseContent').classList.add('hidden');
+    document.getElementById('btnSurprise').classList.remove('hidden');
+
+    // Share links
+    const shareText = `${cel.greeting} ${name} ! ${msg}`;
+    document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+    document.getElementById('btnEmail').href = `mailto:?subject=${encodeURIComponent(cel.greeting + ' ' + name)}&body=${encodeURIComponent(shareText)}`;
+
+    // Switch views
+    document.getElementById('creatorPanel').classList.add('hidden');
+    cardView.classList.remove('hidden');
+    cardView.classList.add('flex');
+
+    // Trigger animations
+    document.getElementById('confettiLayer').innerHTML = '';
+    if (state.anim === 'confetti') launchConfetti(pal.confetti);
+    else if (state.anim === 'sparkles') launchSparkles(pal.confetti);
+    else launchHearts(pal.confetti);
+
+    generateSvgSparkles(pal.accent);
+    lucide.createIcons();
+  });
+
+  // Back button
+  document.getElementById('btnBack').addEventListener('click', () => {
+    document.getElementById('cardView').classList.add('hidden');
+    document.getElementById('cardView').classList.remove('flex');
+    document.getElementById('creatorPanel').classList.remove('hidden');
+  });
+
+  // Surprise
+  document.getElementById('btnSurprise').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('surpriseContent').classList.remove('hidden');
+    document.getElementById('btnSurprise').classList.add('hidden');
+    const pal = PALETTES[state.palette];
+    if (state.anim === 'confetti') launchConfetti(pal.confetti);
+    else if (state.anim === 'sparkles') launchSparkles(pal.confetti);
+    else launchHearts(pal.confetti);
+  });
+
+  // Card click - more particles
+  document.getElementById('card').addEventListener('click', () => {
+    const pal = PALETTES[state.palette];
+    launchConfetti(pal.confetti, 15);
+  });
+
+  // Copy link
+  document.getElementById('btnCopyLink').addEventListener('click', () => {
+    const text = `${CELEBS[state.celeb].greeting} ${document.getElementById('cardName').textContent} ! ${document.getElementById('cardMsg').textContent}`;
+    navigator.clipboard.writeText(text).catch(() => {});
+    showToast('Message copié !');
+  });
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    setTimeout(() => {
+      t.style.opacity = '0';
+      t.style.transform = 'translateX(-50%) translateY(16px)';
+    }, 2000);
+  }
+
+  // Animations
+  function launchConfetti(colors, count = 40) {
+    const layer = document.getElementById('confettiLayer');
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.bottom = '-10px';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.width = (6 + Math.random() * 8) + 'px';
+      el.style.height = (6 + Math.random() * 8) + 'px';
+      el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      el.style.animationDuration = (2 + Math.random() * 3) + 's';
+      el.style.animationDelay = (Math.random() * 0.8) + 's';
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
+  }
+
+  function launchSparkles(colors, count = 30) {
+    const layer = document.getElementById('confettiLayer');
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.textContent = '✦';
+      el.style.position = 'absolute';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.bottom = '-10px';
+      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+      el.style.fontSize = (12 + Math.random() * 16) + 'px';
+      el.style.animation = `floatUp ${2 + Math.random() * 3}s linear ${Math.random() * 0.8}s forwards`;
+      el.style.pointerEvents = 'none';
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 5000);
+    }
+  }
+
+  function launchHearts(colors, count = 25) {
+    const layer = document.getElementById('confettiLayer');
+    const hearts = ['❤️','💖','💕','💗','💝'];
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      el.style.position = 'absolute';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.bottom = '-10px';
+      el.style.fontSize = (14 + Math.random() * 18) + 'px';
+      el.style.animation = `floatUp ${2.5 + Math.random() * 3}s linear ${Math.random() * 0.8}s forwards`;
+      el.style.pointerEvents = 'none';
+      layer.appendChild(el);
+      setTimeout(() => el.remove(), 5500);
+    }
+  }
+
+  function generateSvgSparkles(color) {
+    const svg = document.getElementById('svgSparkles');
+    svg.innerHTML = '';
+    for (let i = 0; i < 20; i++) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', Math.random() * 100 + '%');
+      circle.setAttribute('cy', Math.random() * 100 + '%');
+      circle.setAttribute('r', 1 + Math.random() * 2);
+      circle.setAttribute('fill', color);
+      circle.setAttribute('opacity', '0');
+      circle.style.animation = `sparkle ${2 + Math.random() * 4}s ease-in-out ${Math.random() * 3}s infinite`;
+      svg.appendChild(circle);
+    }
+  }
+
+  // Element SDK
+  const defaultConfig = {
+    recipient_name: 'Emma',
+    main_message: 'Joyeux Anniversaire !',
+    sub_message: 'Que cette journée soit remplie de bonheur ✨',
+    background_color: '#1e1b4b',
+    surface_color: '#ffffff1f',
+    text_color: '#ffffff',
+    primary_action_color: '#a78bfa',
+    secondary_action_color: '#818cf8',
+    font_family: 'Playfair Display',
+    font_size: 16
+  };
+
+  function applyConfig(config) {
+    const name = config.recipient_name || defaultConfig.recipient_name;
+    const msg = config.sub_message || defaultConfig.sub_message;
+    const bg = config.background_color || defaultConfig.background_color;
+    const textCol = config.text_color || defaultConfig.text_color;
+    const primaryCol = config.primary_action_color || defaultConfig.primary_action_color;
+    const secondaryCol = config.secondary_action_color || defaultConfig.secondary_action_color;
+    const surfaceCol = config.surface_color || defaultConfig.surface_color;
+    const font = config.font_family || defaultConfig.font_family;
+    const fontSize = config.font_size || defaultConfig.font_size;
+
+    // Creator panel
+    document.getElementById('inputName').value = name;
+    document.getElementById('inputMsg').value = msg;
+
+    // Card view
+    document.getElementById('cardName').textContent = name;
+    document.getElementById('cardMsg').textContent = msg;
+
+    // Colors
+    const app = document.getElementById('app');
+    app.style.color = textCol;
+
+    const creatorPanel = document.getElementById('creatorPanel');
+    creatorPanel.style.background = `linear-gradient(135deg, ${bg} 0%, ${bg}ee 100%)`;
+
+    document.getElementById('btnCreate').style.background = `linear-gradient(135deg, ${primaryCol}, ${secondaryCol})`;
+
+    // Fonts
+    const fontStack = `${font}, Quicksand, sans-serif`;
+    document.getElementById('cardName').style.fontFamily = fontStack;
+    document.querySelector('#creatorPanel h1').style.fontFamily = fontStack;
+    document.querySelector('#creatorPanel h1').style.color = primaryCol;
+
+    // Font size
+    document.getElementById('cardName').style.fontSize = `${fontSize * 3}px`;
+    document.getElementById('cardMsg').style.fontSize = `${fontSize}px`;
+    document.getElementById('cardGreeting').style.fontSize = `${fontSize * 0.8}px`;
+  }
+
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => applyConfig(config),
+    mapToCapabilities: (config) => ({
+      recolorables: [
+        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+      ],
+      borderables: [],
+      fontEditable: {
+        get: () => config.font_family || defaultConfig.font_family,
+        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+      },
+      fontSizeable: {
+        get: () => config.font_size || defaultConfig.font_size,
+        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+      }
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['recipient_name', config.recipient_name || defaultConfig.recipient_name],
+      ['main_message', config.main_message || defaultConfig.main_message],
+      ['sub_message', config.sub_message || defaultConfig.sub_message]
+    ])
+  });
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e2e8ebc229ead9d',t:'MTc3NDYxNjIxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
