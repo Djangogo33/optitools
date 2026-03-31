@@ -1,239 +1,519 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4CPXRT54FF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partager un tutoriel — TutoFacile</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="style-modern.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --primary:#0066ff; --accent:#00d9a3; --text:#1a1a2e; --bg:#fff; --border:#e5e7eb; --danger:#e53e3e; --success:#38a169; }
+  html.dark-mode { --bg:#0f1117; --text:#f0f0f0; --border:#333; }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
 
-  gtag('config', 'G-4CPXRT54FF');
-</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contribuer — TutoFacile</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/pages.css">
+  /* ── HEADER ── */
+  .site-header { background:#fff; border-bottom:2px solid var(--border); padding:12px 0; position:sticky; top:0; z-index:100; }
+  html.dark-mode .site-header { background:#1a1a1a; }
+  .nav-inner { max-width:1200px; margin:0 auto; padding:0 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .nav-logo { font-size:1.3rem; font-weight:800; text-decoration:none; color:var(--primary); }
+  .nav-links { display:flex; gap:8px; }
+  .nav-link { text-decoration:none; color:var(--text); padding:6px 12px; border-radius:6px; font-weight:500; transition:.2s; }
+  .nav-link:hover, .nav-link.active { background:var(--primary); color:#fff; }
+  html.dark-mode .nav-link { color:#f0f0f0; }
+  .nav-actions { margin-left:auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer; border:2px solid transparent; text-decoration:none; font-size:.9rem; transition:.2s; }
+  .btn-primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+  .btn-primary:hover { background:#0052cc; }
+  .btn-ghost { background:transparent; color:var(--primary); border-color:var(--primary); }
+  .btn-ghost:hover { background:var(--primary); color:#fff; }
+  .btn-lg { padding:12px 28px; font-size:1rem; }
+  .btn-sm { padding:5px 10px; font-size:.82rem; }
+  .dark-toggle { background:none; border:none; cursor:pointer; font-size:1.4rem; padding:4px 8px; }
+  .lang-switch { display:flex; gap:4px; }
+  .lang-btn { background:none; border:1px solid var(--border); border-radius:4px; cursor:pointer; padding:4px 8px; font-size:.85rem; }
+  .lang-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
+
+  /* ── MAIN CONTRIBUTE PAGE ── */
+  .contribute-page { max-width:900px; margin:40px auto; padding:0 20px 60px; }
+  .contribute-header { text-align:center; margin-bottom:40px; }
+  .contribute-header h1 { font-size:2.2rem; color:var(--primary); margin-bottom:12px; }
+  .contribute-header p { color:#666; font-size:1.05rem; max-width:600px; margin:0 auto; }
+  html.dark-mode .contribute-header p { color:#aaa; }
+
+  /* ── FORM CARD ── */
+  .form-card { background:var(--bg); border:1px solid var(--border); border-radius:16px; padding:32px; box-shadow:0 4px 20px rgba(0,0,0,.07); }
+  html.dark-mode .form-card { background:#1e1e2a; border-color:#333; }
+  .form-group { margin-bottom:20px; }
+  .form-group label { display:block; font-weight:600; margin-bottom:6px; font-size:.95rem; }
+  .form-control { width:100%; padding:10px 14px; border:2px solid var(--border); border-radius:8px; font-size:.95rem; background:var(--bg); color:var(--text); transition:.2s; }
+  .form-control:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(0,102,255,.15); }
+  html.dark-mode .form-control { background:#2a2a3a; border-color:#444; color:#f0f0f0; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:600px){ .form-row { grid-template-columns:1fr; } }
+
+  /* ── VISIBILITY TOGGLE ── */
+  .visibility-toggle { display:flex; gap:12px; margin-top:8px; }
+  .vis-btn { flex:1; padding:10px; border:2px solid var(--border); border-radius:8px; cursor:pointer; font-weight:600; background:var(--bg); color:var(--text); text-align:center; transition:.2s; }
+  .vis-btn.active-private { border-color:#f6ad55; background:#fffbeb; color:#9c6a00; }
+  .vis-btn.active-public { border-color:var(--accent); background:#f0fff9; color:#1a6b5a; }
+  html.dark-mode .vis-btn.active-private { background:#3a2a00; color:#f6ad55; }
+  html.dark-mode .vis-btn.active-public { background:#003a2a; color:#00d9a3; }
+
+  /* ── TOOLBAR ── */
+  .editor-toolbar { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+  .toolbar-btn { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:5px 10px; cursor:pointer; font-size:.82rem; font-weight:600; color:var(--text); transition:.15s; }
+  .toolbar-btn:hover { background:var(--primary); color:#fff; border-color:var(--primary); }
+  html.dark-mode .toolbar-btn { background:#2a2a3a; border-color:#444; color:#f0f0f0; }
+
+  /* ── PREVIEW ── */
+  .preview-panel { border:2px solid var(--border); border-radius:8px; padding:20px; min-height:200px; margin-top:8px; background:var(--bg); }
+  html.dark-mode .preview-panel { background:#2a2a3a; border-color:#444; }
+  .preview-panel h2 { font-size:1.3rem; color:var(--primary); margin:12px 0 6px; }
+  .preview-panel h3 { font-size:1.1rem; color:var(--primary); margin:10px 0 4px; }
+  .preview-panel ul, .preview-panel ol { padding-left:20px; margin:8px 0; }
+  .preview-panel code { background:#f4f4f8; padding:2px 6px; border-radius:4px; font-family:monospace; font-size:.9em; }
+  html.dark-mode .preview-panel code { background:#333; }
+  .preview-panel pre { background:#1a1a2e; color:#00d9a3; padding:16px; border-radius:8px; overflow:auto; font-family:monospace; margin:12px 0; }
+
+  /* ── ALERTS ── */
+  .alert { padding:14px 18px; border-radius:8px; margin-bottom:20px; font-weight:500; }
+  .alert-info { background:#eff6ff; border:1px solid #bfdbfe; color:#1e40af; }
+  .alert-danger { background:#fff5f5; border:1px solid #fed7d7; color:#c53030; }
+  .alert-success { background:#f0fff4; border:1px solid #9ae6b4; color:#276749; }
+  html.dark-mode .alert-info { background:#1e3a5f; border-color:#3b82f6; color:#93c5fd; }
+  html.dark-mode .alert-danger { background:#5f1e1e; border-color:#f87171; color:#fca5a5; }
+  html.dark-mode .alert-success { background:#1e4d2f; border-color:#4ade80; color:#86efac; }
+
+  /* ── TIPS SECTION ── */
+  .tips-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:40px; }
+  .tip-card { background:linear-gradient(135deg,rgba(0,102,255,.05),rgba(0,217,163,.05)); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  html.dark-mode .tip-card { background:#1e1e2a; border-color:#333; }
+  .tip-card h3 { font-size:1rem; color:var(--primary); margin-bottom:8px; }
+  .tip-card p { font-size:.875rem; color:#666; line-height:1.5; }
+  html.dark-mode .tip-card p { color:#aaa; }
+
+  /* ── EDITOR TABS ── */
+  .editor-tabs { display:flex; border-bottom:2px solid var(--border); margin-bottom:12px; gap:4px; }
+  .editor-tab { padding:8px 16px; cursor:pointer; font-weight:600; color:#666; border-bottom:3px solid transparent; margin-bottom:-2px; background:none; border-left:none; border-right:none; border-top:none; font-size:.9rem; }
+  .editor-tab.active { color:var(--primary); border-bottom-color:var(--primary); }
+
+  /* ── STEPS BUILDER ── */
+  .steps-builder { margin-top:8px; }
+  .step-item { display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; padding:12px; background:rgba(0,102,255,.04); border-radius:8px; border:1px solid var(--border); }
+  .step-num { font-weight:800; color:var(--primary); font-size:1.1rem; min-width:28px; }
+  .step-input { flex:1; border:none; background:transparent; font-size:.95rem; color:var(--text); resize:vertical; min-height:36px; }
+  .step-input:focus { outline:none; }
+  html.dark-mode .step-input { color:#f0f0f0; }
+  .step-del { background:none; border:none; cursor:pointer; color:#f87171; font-size:1.1rem; padding:0; }
+  .add-step-btn { background:none; border:1px dashed var(--primary); color:var(--primary); padding:8px 16px; border-radius:6px; cursor:pointer; font-weight:600; width:100%; margin-top:4px; transition:.2s; }
+  .add-step-btn:hover { background:var(--primary); color:#fff; }
+</style>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="container nav-inner">
-    <a href="index.html" class="nav-logo"><div class="nav-logo-icon">🎓</div>TutoFacile</a>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">🎓 TutoFacile</a>
     <nav class="nav-links">
-      <a href="index.html" class="nav-link">Accueil</a>
-      <a href="category.html" class="nav-link">Catégories</a>
-      <a href="contribute.html" class="nav-link active">Contribuer</a>
+      <a href="/" class="nav-link">Accueil</a>
+      <a href="/category.html" class="nav-link">Catégories</a>
+      <a href="/contribute.html" class="nav-link active">Contribuer</a>
     </nav>
     <div class="nav-actions">
       <div class="lang-switch">
-        <button class="lang-btn" data-lang="fr">🇫🇷</button>
-        <button class="lang-btn" data-lang="en">🇬🇧</button>
+        <button class="lang-btn" data-lang="fr">🇫🇷 FR</button>
+        <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
       </div>
-      <button class="dark-toggle">🌙</button>
-      <a href="login.html" class="btn btn-ghost btn-sm" id="nav-login">Connexion</a>
-      <a href="dashboard.html" class="btn btn-ghost btn-sm" id="nav-dashboard" style="display:none">Dashboard</a>
-      <button class="btn btn-ghost btn-sm" id="nav-logout" style="display:none">Déconnexion</button>
+      <button class="dark-toggle" id="dark-mode-toggle" title="Mode sombre">🌓</button>
+      <a href="/login.html" class="btn btn-ghost btn-sm" id="nav-login">Connexion</a>
+      <a href="/my-dashboard.html" class="btn btn-ghost btn-sm" id="nav-dashboard" style="display:none">📊 Dashboard</a>
+      <button class="btn btn-ghost btn-sm" id="nav-logout" style="display:none" onclick="doLogout()">Déconnexion</button>
     </div>
-    <button class="nav-burger" id="nav-burger"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav class="nav-mobile" id="nav-mobile">
-  <a href="index.html" class="nav-link">Accueil</a>
-  <a href="contribute.html" class="nav-link">Contribuer</a>
-  <a href="login.html" class="nav-link" id="nav-login-m">Connexion</a>
-</nav>
 
-<div class="contribute-page">
-  <div class="container">
-    <div class="contribute-form">
-      <h1>✍️ Partager un tutoriel</h1>
-      <p>Partagez vos connaissances avec la communauté TutoFacile. Chaque contribution est précieuse !</p>
+<main class="contribute-page">
+  <div class="contribute-header">
+    <h1>✍️ Partager un tutoriel</h1>
+    <p>Partagez vos connaissances avec la communauté TutoFacile. Chaque contribution est précieuse !</p>
+  </div>
 
-      <!-- Alerte connexion -->
-      <div id="login-required" class="alert alert-info" style="display:none">
-        ℹ️ Vous devez être <a href="login.html">connecté</a> pour publier un tutoriel.
-        Pas encore de compte ? <a href="register.html">Créez-en un gratuitement</a>.
+  <div id="login-required" class="alert alert-info" style="display:none">
+    ℹ️ Vous devez être <a href="/login.html">connecté</a> pour publier un tutoriel.
+    Pas encore de compte ? <a href="/register.html">Créez-en un gratuitement</a>.
+  </div>
+  <div id="form-error" class="alert alert-danger" style="display:none"></div>
+  <div id="form-success" class="alert alert-success" style="display:none"></div>
+
+  <div id="tuto-form" class="form-card">
+
+    <!-- Titre -->
+    <div class="form-group">
+      <label>Titre <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="f-titre" class="form-control" placeholder="Un titre clair et accrocheur">
+    </div>
+
+    <!-- Catégorie + Difficulté -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select id="f-cat" class="form-control">
+          <option>Bricolage</option><option>Cuisine</option>
+          <option>Code</option><option>Jardinage</option>
+          <option>Bien-être</option><option>Électronique</option><option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Difficulté</label>
+        <select id="f-diff" class="form-control">
+          <option>Facile</option><option>Moyen</option><option>Difficile</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Durée + Emoji -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Durée estimée (minutes)</label>
+        <input type="number" id="f-time" class="form-control" value="15" min="1" max="300">
+      </div>
+      <div class="form-group">
+        <label>Emoji représentatif</label>
+        <input type="text" id="f-emoji" class="form-control" value="📚" placeholder="📚">
+      </div>
+    </div>
+
+    <!-- Image -->
+    <div class="form-group">
+      <label>Image de couverture (URL, optionnel)</label>
+      <input type="url" id="f-image" class="form-control" placeholder="https://images.unsplash.com/...">
+      <p style="font-size:.8rem;color:#888;margin-top:4px">Lien direct vers une image. Laissez vide pour utiliser l'emoji.</p>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Description courte <span style="color:var(--danger)">*</span></label>
+      <textarea id="f-desc" class="form-control" rows="2"
+        placeholder="Résumez votre tutoriel en 1-2 phrases (affiché dans les cartes)"></textarea>
+    </div>
+
+    <!-- Matériel nécessaire -->
+    <div class="form-group">
+      <label>Matériel nécessaire (optionnel)</label>
+      <textarea id="f-materials" class="form-control" rows="3"
+        placeholder="Un élément par ligne&#10;Ex: Tournevis plat&#10;Perceuse"></textarea>
+      <p style="font-size:.8rem;color:#888;margin-top:4px">Listez les outils ou ingrédients nécessaires, un par ligne.</p>
+    </div>
+
+    <!-- Contenu / Étapes -->
+    <div class="form-group">
+      <label>Contenu du tutoriel <span style="color:var(--danger)">*</span></label>
+
+      <!-- Onglets Éditeur / Aperçu -->
+      <div class="editor-tabs">
+        <button class="editor-tab active" onclick="switchTab('edit',this)">✏️ Écrire</button>
+        <button class="editor-tab" onclick="switchTab('preview',this)">👁️ Aperçu</button>
+        <button class="editor-tab" onclick="switchTab('steps',this)">📋 Étapes guidées</button>
       </div>
 
-      <div id="form-error"   class="alert alert-danger"  style="display:none"></div>
-      <div id="form-success" class="alert alert-success" style="display:none"></div>
+      <!-- Barre d'outils -->
+      <div class="editor-toolbar" id="editor-toolbar">
+        <button type="button" class="toolbar-btn" onclick="ins('<h2>Titre de section</h2>\n')">H2</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<h3>Sous-titre</h3>\n')">H3</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<p>Votre paragraphe ici.</p>\n')">¶</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<ul>\n  <li>Élément 1</li>\n  <li>Élément 2</li>\n</ul>\n')">📋 Liste</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<ol>\n  <li>Étape 1</li>\n  <li>Étape 2</li>\n</ol>\n')">🔢 Étapes</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<div class=\'tip-box\'><strong>💡 Conseil :</strong> </div>\n')">💡 Conseil</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<div class=\'warning-box\'><strong>⚠️ Attention :</strong> </div>\n')">⚠️ Avertissement</button>
+        <button type="button" class="toolbar-btn" onclick="wrapSel('strong')"><b>Gras</b></button>
+        <button type="button" class="toolbar-btn" onclick="wrapSel('em')"><i>Italique</i></button>
+        <button type="button" class="toolbar-btn" onclick="wrapSel('code')">Code</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<pre><code>bloc de code\nmultiligne</code></pre>\n')">📦 Bloc code</button>
+        <button type="button" class="toolbar-btn" onclick="ins('<img src=\'\' alt=\'description\' style=\'max-width:100%;border-radius:8px;\'>\n')">🖼️ Image</button>
+      </div>
 
-      <div id="tuto-form">
-        <div class="form-group">
-          <label>Titre <span style="color:var(--danger)">*</span></label>
-          <input type="text" id="f-titre" class="form-control" placeholder="Un titre clair et accrocheur">
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div class="form-group">
-            <label>Catégorie</label>
-            <select id="f-cat" class="form-control">
-              <option>Bricolage</option><option>Cuisine</option>
-              <option>Code</option><option>Jardinage</option>
-              <option>Bien-être</option><option>Électronique</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Difficulté</label>
-            <select id="f-diff" class="form-control">
-              <option>Facile</option><option>Moyen</option><option>Difficile</option>
-            </select>
-          </div>
-        </div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div class="form-group">
-            <label>Durée estimée (minutes)</label>
-            <input type="number" id="f-time" class="form-control" value="15" min="1" max="300">
-          </div>
-          <div class="form-group">
-            <label>Emoji représentatif</label>
-            <input type="text" id="f-emoji" class="form-control" value="📚" placeholder="📚">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label>Image de couverture (URL, optionnel)</label>
-          <input type="url" id="f-image" class="form-control" placeholder="https://images.unsplash.com/...">
-          <p style="font-size:0.8rem;color:var(--text-light);margin-top:4px">Lien direct vers une image. Laissez vide pour utiliser l'emoji.</p>
-        </div>
-
-        <div class="form-group">
-          <label>Description courte <span style="color:var(--danger)">*</span></label>
-          <textarea id="f-desc" class="form-control" rows="2"
-            placeholder="Résumez votre tutoriel en 1-2 phrases (affiché dans les cartes)"></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>Contenu du tutoriel <span style="color:var(--danger)">*</span></label>
-          <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<h2>Titre de section</h2>\n')">H2</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<h3>Sous-titre</h3>\n')">H3</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<p>Votre paragraphe ici.</p>\n')">¶</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<ul>\n  <li>Élément 1</li>\n  <li>Élément 2</li>\n</ul>\n')">Liste</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<ol>\n  <li>Étape 1</li>\n  <li>Étape 2</li>\n</ol>\n')">Étapes</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="wrapSel('strong')"><b>Gras</b></button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="wrapSel('em')"><i>Italique</i></button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="wrapSel('code')">Code</button>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="ins('<pre>bloc de code\nmultiligne</pre>\n')">Bloc code</button>
-          </div>
-          <textarea id="f-content" class="form-control" rows="14"
-            placeholder="Écris ton tutoriel ici. Tu peux utiliser du HTML basique (h2, h3, p, ul, ol, strong, em, code, pre).
+      <!-- Éditeur texte -->
+      <div id="tab-edit">
+        <textarea id="f-content" class="form-control" rows="16"
+          placeholder="Écris ton tutoriel ici. Tu peux utiliser du HTML (h2, h3, p, ul, ol, strong, em, code, pre).
 
 Exemple :
-<h2>Matériaux nécessaires</h2>
+<h2>📦 Matériel nécessaire</h2>
 <ul>
-  <li>Matériau 1</li>
-  <li>Matériau 2</li>
+  <li>Tournevis</li>
+  <li>Perceuse</li>
 </ul>
 
-<h2>Étape 1 : Préparation</h2>
-<p>Commencez par...</p>"></textarea>
-        </div>
+<h2>⚙️ Étape 1 : Préparation</h2>
+<p>Commencez par...</p>
 
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <button class="btn btn-primary btn-lg" onclick="submitTuto()">🚀 Publier le tutoriel</button>
-          <a href="index.html" class="btn btn-ghost btn-lg">Annuler</a>
+<div class='tip-box'><strong>💡 Conseil :</strong> N'oubliez pas de...</div>"></textarea>
+      </div>
+
+      <!-- Aperçu -->
+      <div id="tab-preview" style="display:none">
+        <div class="preview-panel" id="preview-content">
+          <p style="color:#999;text-align:center;padding:20px">Écrivez du contenu dans l'éditeur pour voir l'aperçu ici.</p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-bottom">
-      <p>© <span id="footer-year"></span> TutoFacile — <a href="index.html">Accueil</a></p>
+      <!-- Étapes guidées -->
+      <div id="tab-steps" style="display:none">
+        <p style="font-size:.875rem;color:#666;margin-bottom:12px">Mode étapes — chaque étape sera numérotée automatiquement.</p>
+        <div class="steps-builder" id="steps-builder"></div>
+        <button type="button" class="add-step-btn" onclick="addStep()">+ Ajouter une étape</button>
+        <p style="font-size:.8rem;color:#888;margin-top:8px">Ces étapes seront converties automatiquement en HTML structuré.</p>
+      </div>
+    </div>
+
+    <!-- Conseils supplémentaires -->
+    <div class="form-group">
+      <label>Conseils et astuces (optionnel)</label>
+      <textarea id="f-tips" class="form-control" rows="3"
+        placeholder="Partagez vos trucs et astuces pour réussir ce tutoriel..."></textarea>
+    </div>
+
+    <!-- Visibilité -->
+    <div class="form-group">
+      <label>Visibilité du tutoriel</label>
+      <div class="visibility-toggle">
+        <button type="button" class="vis-btn active-private" id="vis-private" onclick="setVisibility('private')">
+          🔒 Privé<br><small style="font-weight:400;font-size:.8rem">Visible uniquement par vous</small>
+        </button>
+        <button type="button" class="vis-btn" id="vis-public" onclick="setVisibility('public')">
+          🌍 Public<br><small style="font-weight:400;font-size:.8rem">Visible par tous les utilisateurs</small>
+        </button>
+      </div>
+      <input type="hidden" id="f-visibility" value="private">
+    </div>
+
+    <!-- Tags -->
+    <div class="form-group">
+      <label>Tags (optionnel, séparés par des virgules)</label>
+      <input type="text" id="f-tags" class="form-control" placeholder="bricolage, réparation, maison">
+    </div>
+
+    <!-- Actions -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-primary btn-lg" onclick="submitTuto()">🚀 Publier le tutoriel</button>
+      <a href="/" class="btn btn-ghost btn-lg">Annuler</a>
     </div>
   </div>
+
+  <!-- Conseils -->
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h3>📸 Ajouter des images</h3>
+      <p>Utilisez Unsplash (unsplash.com) pour des images libres de droits. Copiez le lien direct de l'image.</p>
+    </div>
+    <div class="tip-card">
+      <h3>📋 Structure claire</h3>
+      <p>Divisez votre tutoriel en étapes numérotées avec des titres H2. Ça rend le contenu plus lisible.</p>
+    </div>
+    <div class="tip-card">
+      <h3>💡 Conseils et astuces</h3>
+      <p>Partagez vos erreurs passées et comment les éviter. Ce sont souvent les conseils les plus utiles !</p>
+    </div>
+    <div class="tip-card">
+      <h3>🔒 Tutoriels privés</h3>
+      <p>Un tutoriel privé est visible uniquement par vous. Passez-le en public quand il est prêt.</p>
+    </div>
+  </div>
+
+  <!-- Promo About Me + Community -->
+  <div style="background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;padding:32px;margin-top:40px;color:white;text-align:center;">
+    <h2 style="margin-bottom:12px;">🌐 Rejoignez la communauté</h2>
+    <p style="opacity:.95;margin-bottom:20px;font-size:1.05rem;">Partagez vos créations, posez vos questions, inspirez les autres !</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://discord.gg/J2ssa2Wkjr" target="_blank" style="display:inline-block;padding:10px 22px;background:white;color:#5865F2;border-radius:8px;font-weight:700;text-decoration:none;">💬 Discord</a>
+      <a href="https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f" target="_blank" style="display:inline-block;padding:10px 22px;background:#25d366;color:white;border-radius:8px;font-weight:700;text-decoration:none;">📱 WhatsApp</a>
+      <a href="https://djangogo33.github.io/about-me" target="_blank" style="display:inline-block;padding:10px 22px;background:rgba(255,255,255,.2);color:white;border:2px solid white;border-radius:8px;font-weight:700;text-decoration:none;">👤 À propos du créateur</a>
+    </div>
+  </div>
+</main>
+
+<footer style="background:#1a1a2e;color:#aaa;text-align:center;padding:24px;margin-top:60px;">
+  <p>© 2025 TutoFacile — <a href="/" style="color:var(--accent)">Accueil</a> · <a href="/privacy.html" style="color:var(--accent)">Confidentialité</a></p>
 </footer>
 
-<script src="js/nav.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/data.js"></script>
+<script src="dark-mode-toggle.js" defer></script>
+<script src="language-selector.js" defer></script>
 <script>
-document.getElementById('footer-year').textContent = new Date().getFullYear();
+// ── Auth check ────────────────────────────────────────────────────
+function getUser() {
+  try { return JSON.parse(localStorage.getItem('tutofacile_current_user')); } catch { return null; }
+}
 
-let currentUser = null;
+function doLogout() {
+  localStorage.removeItem('tutofacile_current_user');
+  window.location.reload();
+}
 
-Auth.getCurrentUser().then(user => {
-  currentUser = user;
-  if (!user) {
+(function checkAuth() {
+  const user = getUser();
+  if (user) {
+    document.getElementById('nav-login').style.display = 'none';
+    document.getElementById('nav-dashboard').style.display = '';
+    document.getElementById('nav-logout').style.display = '';
+  } else {
     document.getElementById('login-required').style.display = 'block';
-    document.getElementById('tuto-form').style.opacity = '0.5';
-    document.getElementById('tuto-form').style.pointerEvents = 'none';
+    const form = document.getElementById('tuto-form');
+    form.style.opacity = '.5';
+    form.style.pointerEvents = 'none';
   }
-});
+})();
 
+// ── Visibility ────────────────────────────────────────────────────
+function setVisibility(v) {
+  document.getElementById('f-visibility').value = v;
+  document.getElementById('vis-private').className = 'vis-btn' + (v === 'private' ? ' active-private' : '');
+  document.getElementById('vis-public').className = 'vis-btn' + (v === 'public' ? ' active-public' : '');
+}
+
+// ── Editor tabs ───────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.editor-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-edit').style.display = tab === 'edit' ? '' : 'none';
+  document.getElementById('tab-preview').style.display = tab === 'preview' ? '' : 'none';
+  document.getElementById('tab-steps').style.display = tab === 'steps' ? '' : 'none';
+  document.getElementById('editor-toolbar').style.display = tab === 'edit' ? '' : 'none';
+  if (tab === 'preview') {
+    document.getElementById('preview-content').innerHTML =
+      document.getElementById('f-content').value || '<p style="color:#999;text-align:center;">Aucun contenu</p>';
+  }
+}
+
+// ── Toolbar helpers ───────────────────────────────────────────────
 function ins(html) {
   const ta = document.getElementById('f-content');
-  const s  = ta.selectionStart;
-  const e  = ta.selectionEnd;
+  const s = ta.selectionStart, e = ta.selectionEnd;
   ta.value = ta.value.slice(0,s) + html + ta.value.slice(e);
   ta.selectionStart = ta.selectionEnd = s + html.length;
   ta.focus();
 }
-
 function wrapSel(tag) {
-  const ta  = document.getElementById('f-content');
-  const s   = ta.selectionStart;
-  const e   = ta.selectionEnd;
+  const ta = document.getElementById('f-content');
+  const s = ta.selectionStart, e = ta.selectionEnd;
   const sel = ta.value.slice(s, e) || 'texte';
-  const wrapped = `<${tag}>${sel}</${tag}>`;
-  ta.value = ta.value.slice(0,s) + wrapped + ta.value.slice(e);
+  const w = `<${tag}>${sel}</${tag}>`;
+  ta.value = ta.value.slice(0,s) + w + ta.value.slice(e);
   ta.selectionStart = s + tag.length + 2;
-  ta.selectionEnd   = s + tag.length + 2 + sel.length;
+  ta.selectionEnd = s + tag.length + 2 + sel.length;
   ta.focus();
 }
 
-async function submitTuto() {
-  if (!currentUser) {
-    toast('Vous devez être connecté pour publier.', 'error');
-    return;
-  }
+// ── Steps builder ─────────────────────────────────────────────────
+let stepsData = [];
+function addStep(text = '') {
+  const n = stepsData.length + 1;
+  const id = 'step_' + Date.now();
+  stepsData.push({ id, text });
+  const builder = document.getElementById('steps-builder');
+  const div = document.createElement('div');
+  div.className = 'step-item';
+  div.id = id;
+  div.innerHTML = `<span class="step-num">${n}</span>
+    <textarea class="step-input form-control" rows="2" placeholder="Décrivez l'étape ${n}..."
+      oninput="updateStep('${id}', this.value)">${text}</textarea>
+    <button class="step-del" onclick="removeStep('${id}')" title="Supprimer">🗑️</button>`;
+  builder.appendChild(div);
+}
+function updateStep(id, val) {
+  const s = stepsData.find(s => s.id === id);
+  if (s) s.text = val;
+}
+function removeStep(id) {
+  stepsData = stepsData.filter(s => s.id !== id);
+  document.getElementById(id)?.remove();
+  renumberSteps();
+}
+function renumberSteps() {
+  document.querySelectorAll('.step-item .step-num').forEach((el, i) => el.textContent = i + 1);
+}
+function buildStepsHTML() {
+  if (!stepsData.length) return '';
+  return '<ol>\n' + stepsData.map(s => `  <li>${s.text.replace(/\n/g,'<br>')}</li>`).join('\n') + '\n</ol>';
+}
 
-  const titre   = document.getElementById('f-titre').value.trim();
-  const desc    = document.getElementById('f-desc').value.trim();
-  const content = document.getElementById('f-content').value.trim();
-  const errEl   = document.getElementById('form-error');
-  const okEl    = document.getElementById('form-success');
-
+// ── Submit ────────────────────────────────────────────────────────
+function submitTuto() {
+  const user = getUser();
+  const errEl = document.getElementById('form-error');
+  const okEl = document.getElementById('form-success');
   errEl.style.display = okEl.style.display = 'none';
 
-  if (!titre)   { errEl.textContent = 'Le titre est obligatoire.';   errEl.style.display = 'block'; return; }
-  if (!desc)    { errEl.textContent = 'La description est obligatoire.'; errEl.style.display = 'block'; return; }
-  if (!content) { errEl.textContent = 'Le contenu est vide.';        errEl.style.display = 'block'; return; }
+  if (!user) { errEl.textContent = 'Vous devez être connecté.'; errEl.style.display = 'block'; return; }
 
-  try {
-    const tuto = TutoData.create({
-      titre, description: desc, content,
-      categorie : document.getElementById('f-cat').value,
-      difficulty: document.getElementById('f-diff').value,
-      time      : document.getElementById('f-time').value,
-      emoji     : document.getElementById('f-emoji').value || '📚',
-      image     : document.getElementById('f-image').value.trim(),
-    }, currentUser);
+  const titre = document.getElementById('f-titre').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  let content = document.getElementById('f-content').value.trim();
+  const materials = document.getElementById('f-materials').value.trim();
+  const tips = document.getElementById('f-tips').value.trim();
+  const visibility = document.getElementById('f-visibility').value;
 
-    okEl.innerHTML = `✅ Tutoriel publié ! <a href="tuto.html?id=${tuto.id}">Voir mon tuto →</a>`;
-    okEl.style.display = 'block';
+  // If steps tab was used and has content, use it
+  if (stepsData.length && !content) content = buildStepsHTML();
 
-    /* Reset */
-    document.getElementById('f-titre').value   = '';
-    document.getElementById('f-desc').value    = '';
-    document.getElementById('f-content').value = '';
-    document.getElementById('f-image').value   = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (!titre) { errEl.textContent = 'Le titre est obligatoire.'; errEl.style.display = 'block'; return; }
+  if (!desc) { errEl.textContent = 'La description est obligatoire.'; errEl.style.display = 'block'; return; }
+  if (!content) { errEl.textContent = 'Le contenu est vide.'; errEl.style.display = 'block'; return; }
 
-  } catch(e) {
-    errEl.textContent = e.message;
-    errEl.style.display = 'block';
+  // Build enriched HTML
+  let richContent = '';
+  if (materials.trim()) {
+    const items = materials.split('\n').filter(l=>l.trim());
+    richContent += '<h2>📦 Matériel nécessaire</h2>\n<ul>\n' + items.map(i=>`  <li>${i.trim()}</li>`).join('\n') + '\n</ul>\n\n';
   }
+  richContent += content;
+  if (tips.trim()) {
+    richContent += `\n\n<div class='tip-box'><strong>💡 Conseils :</strong> ${tips}</div>`;
+  }
+
+  const tags = document.getElementById('f-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+
+  // Save to user's private storage
+  const KEY = `tutofacile_user_${user.username.toLowerCase()}_tutorials`;
+  let tutos = [];
+  try { tutos = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch {}
+
+  const tuto = {
+    id: 'tuto_' + Date.now() + '_' + Math.random().toString(36).substr(2,5),
+    titre,
+    description: desc,
+    content: richContent,
+    categorie: document.getElementById('f-cat').value,
+    difficulty: document.getElementById('f-diff').value,
+    time: parseInt(document.getElementById('f-time').value) || 15,
+    emoji: document.getElementById('f-emoji').value || '📚',
+    image: document.getElementById('f-image').value.trim(),
+    tags,
+    visibility,
+    author: user.username,
+    authorKey: user.username.toLowerCase(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+
+  tutos.unshift(tuto);
+  localStorage.setItem(KEY, JSON.stringify(tutos));
+
+  const visLabel = visibility === 'public' ? '🌍 public' : '🔒 privé';
+  okEl.innerHTML = `✅ Tutoriel publié en mode ${visLabel} ! <a href="/my-dashboard.html">Voir dans votre dashboard →</a>`;
+  okEl.style.display = 'block';
+
+  // Reset form
+  ['f-titre','f-desc','f-content','f-image','f-materials','f-tips','f-tags'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f-time').value = '15';
+  document.getElementById('f-emoji').value = '📚';
+  stepsData = [];
+  document.getElementById('steps-builder').innerHTML = '';
+  setVisibility('private');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
