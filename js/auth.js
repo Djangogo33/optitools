@@ -13,7 +13,7 @@
 const Auth = (() => {
 
   /* === Config admin === */
-  const ADMIN_USER      = 'djangogo33';
+  const ADMIN_USER      = 'admin';
   const ADMIN_PASS_HASH = '3317aa538c37cc0d073839ea8d98438e78c5eb32e1119b5e4e22ff0992bc91af';
   const TOKEN_SECRET    = 'vive_les_vacances';
   /* =================== */
