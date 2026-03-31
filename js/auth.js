@@ -1,177 +1,203 @@
-/* ============================================================
-   auth.js — Authentification TutoFacile
-   Même système SHA-256 que le portfolio about-me,
-   adapté pour les utilisateurs publics (register/login)
-   + admin avec hash en dur.
+/**
+ * auth.js — TutoFacile
+ * Système d'authentification + tutoriels PRIVÉS par utilisateur
+ * Les tutos créés par un utilisateur ne sont visibles que par lui seul
+ * (sauf s'il choisit de les publier dans la liste communautaire)
+ */
 
-   ADMIN :
-   - Identifiant : admin
-   - Mot de passe : défini par ADMIN_PASS_HASH ci-dessous
-   - Pour changer : https://emn178.github.io/online-tools/sha256.html
-   ============================================================ */
+const AUTH = (() => {
+  'use strict';
 
-const Auth = (() => {
+  const USERS_KEY = 'tutofacile_users';
+  const SESSION_KEY = 'tutofacile_current_user';
 
-  /* === Config admin === */
-  const ADMIN_USER      = 'admin';
-  const ADMIN_PASS_HASH = '3317aa538c37cc0d073839ea8d98438e78c5eb32e1119b5e4e22ff0992bc91af';
-  const TOKEN_SECRET    = 'vive_les_vacances';
-  /* =================== */
-
-  const STORAGE = {
-    USERS    : 'tf_users',
-    SESSION  : 'tf_session',
-    A_SESSION: 'tf_admin_session',
-  };
-  const SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; /* 7 jours */
-
-  /* ── SHA-256 natif ── */
-  async function sha256(msg) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-
+  // ── Hachage simple (SHA-256 via SubtleCrypto) ────────────────────────
+  async function hashPassword(password) {
+    const enc = new TextEncoder();
+    const data = enc.encode(password + 'tutofacile_salt_2025');
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  /* ── Token de session signé ── */
-  async function makeToken(data, secret) {
-    const exp = Date.now() + SESSION_DURATION;
-    const pay = JSON.stringify({ ...data, exp });
-    const sig = await sha256(pay + secret);
-    return btoa(JSON.stringify({ pay, sig }));
+  // ── Clé de stockage des tutos d'un utilisateur ───────────────────────
+  function userTutosKey(username) {
+    return `tutofacile_user_${username}_tutorials`;
   }
 
-  async function verifyToken(raw, secret) {
-
+  // ── Lecture des utilisateurs ─────────────────────────────────────────
+  function getUsers() {
     try {
-      const { pay, sig } = JSON.parse(atob(raw));
-      const { exp }      = JSON.parse(pay);
-      if (Date.now() > exp) return null;
-      if (await sha256(pay + secret) !== sig) return null;
-      return JSON.parse(pay);
-    } catch { return null; }
+      return JSON.parse(localStorage.getItem(USERS_KEY) || '{}');
+    } catch {
+      return {};
+    }
   }
 
-  /* ── Helpers localStorage ── */
-  const getUsers = () => JSON.parse(localStorage.getItem(STORAGE.USERS) || '[]');
-  const setUsers = u  => localStorage.setItem(STORAGE.USERS, JSON.stringify(u));
+  function saveUsers(users) {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  }
 
-  /* ══════════════════════════════════════
-     API PUBLIQUE
-  ══════════════════════════════════════ */
+  // ── Session ──────────────────────────────────────────────────────────
+  function getCurrentUser() {
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function setCurrentUser(userObj) {
+    localStorage.setItem(SESSION_KEY, JSON.stringify(userObj));
+  }
+
+  // ── Inscription ──────────────────────────────────────────────────────
+  async function register(username, email, password) {
+    if (!username || !email || !password) throw new Error('Tous les champs sont requis.');
+    if (username.length < 3) throw new Error('Nom d\'utilisateur trop court (min 3 caractères).');
+    if (password.length < 6) throw new Error('Mot de passe trop court (min 6 caractères).');
+
+    const users = getUsers();
+    const key = username.toLowerCase();
+
+    if (users[key]) throw new Error('Ce nom d\'utilisateur est déjà pris.');
+
+    const hashedPwd = await hashPassword(password);
+    users[key] = {
+      username,
+      email,
+      password: hashedPwd,
+      createdAt: new Date().toISOString(),
+      role: 'user'
+    };
+
+    saveUsers(users);
+    // Initialise le stockage de tutos vide pour cet utilisateur
+    if (!localStorage.getItem(userTutosKey(key))) {
+      localStorage.setItem(userTutosKey(key), JSON.stringify([]));
+    }
+
+    return { username, email, role: 'user' };
+  }
+
+  // ── Connexion ────────────────────────────────────────────────────────
+  async function login(username, password) {
+    if (!username || !password) throw new Error('Identifiants requis.');
+
+    const users = getUsers();
+    const key = username.toLowerCase();
+    const user = users[key];
+
+    if (!user) throw new Error('Utilisateur introuvable.');
+
+    const hashedPwd = await hashPassword(password);
+    if (hashedPwd !== user.password) throw new Error('Mot de passe incorrect.');
+
+    const session = { username: user.username, email: user.email, role: user.role };
+    setCurrentUser(session);
+    return session;
+  }
+
+  // ── Déconnexion ──────────────────────────────────────────────────────
+  function logout() {
+    localStorage.removeItem(SESSION_KEY);
+  }
+
+  // ── Tutoriels PRIVÉS de l'utilisateur connecté ───────────────────────
+  function getMyTutos() {
+    const user = getCurrentUser();
+    if (!user) return [];
+    try {
+      return JSON.parse(localStorage.getItem(userTutosKey(user.username.toLowerCase())) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  function saveMyTutos(tutos) {
+    const user = getCurrentUser();
+    if (!user) return;
+    localStorage.setItem(userTutosKey(user.username.toLowerCase()), JSON.stringify(tutos));
+  }
+
+  function createTuto(data) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('Vous devez être connecté.');
+
+    const tuto = {
+      id: 'tuto_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+      ...data,
+      author: user.username,
+      authorKey: user.username.toLowerCase(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      // Par défaut : privé (visible uniquement par le créateur)
+      visibility: data.visibility || 'private',
+    };
+
+    const tutos = getMyTutos();
+    tutos.unshift(tuto);
+    saveMyTutos(tutos);
+    return tuto;
+  }
+
+  function updateTuto(id, data) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('Vous devez être connecté.');
+
+    const tutos = getMyTutos();
+    const idx = tutos.findIndex(t => t.id === id);
+    if (idx === -1) throw new Error('Tutoriel introuvable.');
+    if (tutos[idx].authorKey !== user.username.toLowerCase()) throw new Error('Non autorisé.');
+
+    tutos[idx] = { ...tutos[idx], ...data, updatedAt: new Date().toISOString() };
+    saveMyTutos(tutos);
+    return tutos[idx];
+  }
+
+  function deleteTuto(id) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('Vous devez être connecté.');
+
+    const tutos = getMyTutos();
+    const idx = tutos.findIndex(t => t.id === id);
+    if (idx === -1) throw new Error('Tutoriel introuvable.');
+    if (tutos[idx].authorKey !== user.username.toLowerCase() && user.role !== 'admin') {
+      throw new Error('Non autorisé.');
+    }
+
+    tutos.splice(idx, 1);
+    saveMyTutos(tutos);
+  }
+
+  // ── Tutos publics (publiés par n'importe quel utilisateur) ───────────
+  // Un tuto devient public uniquement si visibility === 'public'
+  function getPublicUserTutos() {
+    const users = getUsers();
+    let all = [];
+    for (const key of Object.keys(users)) {
+      try {
+        const tutos = JSON.parse(localStorage.getItem(userTutosKey(key)) || '[]');
+        all = all.concat(tutos.filter(t => t.visibility === 'public'));
+      } catch {}
+    }
+    return all.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
+
   return {
-
-    /* ── Inscription utilisateur ── */
-    async register(username, email, password) {
-      const users = getUsers();
-
-      /* Validations */
-      if (!username || username.length < 3)
-        throw new Error('Le nom d\'utilisateur doit faire au moins 3 caractères.');
-      if (!email || !email.includes('@'))
-        throw new Error('Adresse email invalide.');
-      if (!password || password.length < 6)
-        throw new Error('Le mot de passe doit faire au moins 6 caractères.');
-      if (users.find(u => u.username.toLowerCase() === username.toLowerCase()))
-        throw new Error('Ce nom d\'utilisateur est déjà pris.');
-      if (users.find(u => u.email.toLowerCase() === email.toLowerCase()))
-        throw new Error('Cette adresse email est déjà utilisée.');
-
-      const hash = await sha256(password);
-      const user = {
-        id       : Date.now().toString(),
-        username : username.trim(),
-        email    : email.trim().toLowerCase(),
-        hash,
-        createdAt: new Date().toISOString(),
-        role     : 'user',
-      };
-
-      users.push(user);
-      setUsers(users);
-
-      /* Connecter directement après inscription */
-      const token = await makeToken({ id: user.id, username: user.username }, TOKEN_SECRET);
-      localStorage.setItem(STORAGE.SESSION, token);
-      return user;
-    },
-
-    /* ── Connexion utilisateur ── */
-    async login(username, password) {
-      const users = getUsers();
-      const user  = users.find(u => u.username.toLowerCase() === username.toLowerCase());
-      if (!user) throw new Error('Nom d\'utilisateur ou mot de passe incorrect.');
-
-      const hash = await sha256(password);
-      if (hash !== user.hash) throw new Error('Nom d\'utilisateur ou mot de passe incorrect.');
-
-      const token = await makeToken({ id: user.id, username: user.username }, TOKEN_SECRET);
-      localStorage.setItem(STORAGE.SESSION, token);
-      return user;
-    },
-
-    /* ── Récupérer l'utilisateur connecté ── */
-    async getCurrentUser() {
-      const token = localStorage.getItem(STORAGE.SESSION);
-      if (!token) return null;
-      const data  = await verifyToken(token, TOKEN_SECRET);
-      if (!data)  { localStorage.removeItem(STORAGE.SESSION); return null; }
-      const users = getUsers();
-      return users.find(u => u.id === data.id) || null;
-    },
-
-    /* ── Déconnexion ── */
-    logout() {
-      localStorage.removeItem(STORAGE.SESSION);
-    },
-
-    /* ── Changer le mot de passe ── */
-    async changePassword(userId, oldPassword, newPassword) {
-      const users = getUsers();
-      const idx   = users.findIndex(u => u.id === userId);
-      if (idx < 0) throw new Error('Utilisateur introuvable.');
-
-      const oldHash = await sha256(oldPassword);
-      if (oldHash !== users[idx].hash) throw new Error('Mot de passe actuel incorrect.');
-      if (newPassword.length < 6) throw new Error('Le nouveau mot de passe doit faire au moins 6 caractères.');
-
-      users[idx].hash = await sha256(newPassword);
-      setUsers(users);
-    },
-
-    /* ══════════════════════════════════════
-       ADMIN (même système que about-me)
-    ══════════════════════════════════════ */
-
-    /* Connexion admin avec SHA-256 */
-    async adminLogin(username, password) {
-      if (username.toLowerCase() !== ADMIN_USER) return false;
-      const hash = await sha256(password);
-      if (hash !== ADMIN_PASS_HASH) return false;
-      const token = await makeToken({ role: 'admin', user: ADMIN_USER }, TOKEN_SECRET + '-admin');
-      sessionStorage.setItem(STORAGE.A_SESSION, token);
-      return true;
-    },
-
-    /* Vérifier la session admin */
-    async isAdminAuthenticated() {
-      const token = sessionStorage.getItem(STORAGE.A_SESSION);
-      if (!token) return false;
-      const data  = await verifyToken(token, TOKEN_SECRET + '-admin');
-      return data?.role === 'admin';
-    },
-
-    /* Déconnexion admin */
-    adminLogout() {
-      sessionStorage.removeItem(STORAGE.A_SESSION);
-    },
-
-    /* Utilitaire : hasher un mot de passe */
-    sha256,
-
-    ADMIN_USER,
+    register,
+    login,
+    logout,
+    getCurrentUser,
+    getMyTutos,
+    createTuto,
+    updateTuto,
+    deleteTuto,
+    getPublicUserTutos,
+    hashPassword,
   };
-
-
 })();
 
-window.Auth = Auth;
+// Expose globalement
+window.AUTH = AUTH;
