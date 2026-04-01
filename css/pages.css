@@ -474,19 +474,3 @@
   .tuto-header { padding: 24px; }
   .contribute-form { padding: 1.5rem; }
 }
-
-/* ── Boîte conseil dans les tutoriels ── */
-.tip-box {
-  background: var(--primary-light);
-  border-left: 4px solid var(--primary);
-  border-radius: 0 var(--r-md) var(--r-md) 0;
-  padding: 14px 16px;
-  margin: 16px 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--text);
-}
-html.dark .tip-box {
-  background: rgba(77, 142, 255, 0.1);
-  border-color: var(--primary);
-}

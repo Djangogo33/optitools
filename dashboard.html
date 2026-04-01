@@ -2,8 +2,6 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <!-- Anti-flash dark mode -->
-  <script>if(localStorage.getItem("tf_dark")==="true")document.documentElement.classList.add("dark");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard — TutoFacile</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -141,20 +139,6 @@
           <textarea id="f-content" class="form-control" rows="12" placeholder="Écris ton tutoriel ici en HTML. Utilise les boutons au-dessus pour insérer des balises."></textarea>
         </div>
 
-        <div class="form-group">
-          <label>Visibilité</label>
-          <div style="display:flex;gap:10px;margin-top:6px">
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 16px;border:2px solid var(--border);border-radius:var(--r-md);flex:1;transition:all var(--t)" id="vis-private-label">
-              <input type="radio" name="f-visibility" id="f-vis-private" value="private" checked onchange="highlightVis()">
-              <span>🔒 <strong>Privé</strong> — visible uniquement par vous</span>
-            </label>
-            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:10px 16px;border:2px solid var(--border);border-radius:var(--r-md);flex:1;transition:all var(--t)" id="vis-public-label">
-              <input type="radio" name="f-visibility" id="f-vis-public" value="public" onchange="highlightVis()">
-              <span>🌍 <strong>Public</strong> — visible par tous</span>
-            </label>
-          </div>
-        </div>
-
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn btn-primary btn-lg" onclick="saveTuto()">💾 Enregistrer</button>
           <button class="btn btn-ghost" onclick="resetForm()">Annuler</button>
@@ -249,7 +233,7 @@ async function loadMyTutos() {
   el.innerHTML = `
     <table class="tuto-table">
       <thead><tr>
-        <th>Tutoriel</th><th>Catégorie</th><th>Difficulté</th><th>Visibilité</th><th>Vues</th><th>Actions</th>
+        <th>Tutoriel</th><th>Catégorie</th><th>Difficulté</th><th>Vues</th><th>Actions</th>
       </tr></thead>
       <tbody>
         ${tutos.map(t => `
@@ -257,7 +241,6 @@ async function loadMyTutos() {
             <td><strong>${t.titre}</strong><br><small style="color:var(--text-light)">${(t.description||'').slice(0,50)}…</small></td>
             <td>${t.categorie||'—'}</td>
             <td><span class="badge badge-${t.difficulty==='Facile'?'success':t.difficulty==='Moyen'?'warning':'danger'}">${t.difficulty||'—'}</span></td>
-            <td>${t.published ? '<span class="badge badge-success">🌍 Public</span>' : '<span class="badge" style="background:var(--bg-muted);color:var(--text-light);border:1px solid var(--border)">🔒 Privé</span>'}</td>
             <td>👁️ ${t.views||0}</td>
             <td class="td-actions">
               <a href="tuto.html?id=${t.id}" class="btn btn-ghost btn-sm">👁️</a>
@@ -268,17 +251,6 @@ async function loadMyTutos() {
       </tbody>
     </table>`;
 }
-
-/* ── Visibilité ── */
-function highlightVis() {
-  const isPrivate = document.getElementById('f-vis-private').checked;
-  document.getElementById('vis-private-label').style.borderColor = isPrivate ? 'var(--warning)' : 'var(--border)';
-  document.getElementById('vis-private-label').style.background   = isPrivate ? 'rgba(245,158,11,0.08)' : '';
-  document.getElementById('vis-public-label').style.borderColor  = !isPrivate ? 'var(--success)' : 'var(--border)';
-  document.getElementById('vis-public-label').style.background    = !isPrivate ? 'rgba(34,197,94,0.08)' : '';
-}
-/* Appliquer la mise en forme initiale */
-document.addEventListener('DOMContentLoaded', highlightVis);
 
 /* ── Créer / modifier ── */
 function ins(html) {
@@ -291,11 +263,10 @@ function ins(html) {
 }
 
 async function saveTuto() {
-  const id        = document.getElementById('edit-id').value;
-  const titre     = document.getElementById('f-titre').value.trim();
-  const desc      = document.getElementById('f-desc').value.trim();
-  const content   = document.getElementById('f-content').value.trim();
-  const published = document.getElementById('f-vis-public').checked;
+  const id      = document.getElementById('edit-id').value;
+  const titre   = document.getElementById('f-titre').value.trim();
+  const desc    = document.getElementById('f-desc').value.trim();
+  const content = document.getElementById('f-content').value.trim();
 
   if (!titre)   { toast('Le titre est obligatoire.', 'error'); return; }
   if (!content) { toast('Le contenu est vide.', 'error'); return; }
@@ -309,7 +280,6 @@ async function saveTuto() {
     emoji      : document.getElementById('f-emoji').value || '📚',
     image      : document.getElementById('f-image').value.trim(),
     content,
-    published,
   };
 
   try {
@@ -342,10 +312,7 @@ async function editTuto(id) {
   document.getElementById('f-image').value       = t.image     || '';
   document.getElementById('f-desc').value        = t.description|| '';
   document.getElementById('f-content').value     = t.content   || '';
-  document.getElementById('f-vis-public').checked  = !!t.published;
-  document.getElementById('f-vis-private').checked = !t.published;
   document.getElementById('form-title').textContent = '✏️ Modifier le tutoriel';
-  highlightVis();
 
   switchTab('create');
 }
@@ -370,12 +337,9 @@ function resetForm() {
   document.getElementById('f-image').value       = '';
   document.getElementById('f-desc').value        = '';
   document.getElementById('f-content').value     = '';
-  document.getElementById('f-vis-private').checked = true;
-  document.getElementById('f-vis-public').checked  = false;
   document.getElementById('form-title').textContent = '➕ Créer un tutoriel';
-  highlightVis();
 }
-    }
+
 /* ── Changer mot de passe ── */
 async function changePwd() {
   const err = document.getElementById('pwd-error');

@@ -78,7 +78,7 @@ const TutoData = (() => {
       createdAt  : new Date().toISOString(),
       updatedAt  : new Date().toISOString(),
       views      : 0,
-      published  : data.published !== undefined ? !!data.published : true,
+      published  : true,
     };
     const custom = getCustom();
     custom.unshift(tuto);

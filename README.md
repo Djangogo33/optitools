@@ -1,20 +1,7 @@
 # 🎓 TutoFacile — Plateforme de tutoriels gratuits
 
-**Site :** https://djangogo33.github.io/optitools  
-**Admin :** https://djangogo33.github.io/optitools/admin.html  
-**Repo :** https://github.com/Djangogo33/optitools  
-**Créateur :** [Djangogo33](https://djangogo33.github.io/about-me)
-
----
-
-## 🌐 Écosystème
-
-| Projet | Lien |
-|--------|------|
-| 💬 Discord | https://discord.com/invite/7F8jX2Se |
-| 📱 WhatsApp | https://whatsapp.com/channel/0029VbCJCg06GcG7aLZPGu1f |
-| 🧩 AITools Pro | https://github.com/Djangogo33/AITools |
-| 👤 About Me | https://djangogo33.github.io/about-me |
+Site : https://djangogo33.github.io/optitools  
+Admin : https://djangogo33.github.io/optitools/admin.html
 
 ---
 
@@ -22,26 +9,25 @@
 
 ```
 optitools/
-├── index.html          ← Page d'accueil (+ bandeau promo écosystème)
+├── index.html          ← Page d'accueil
 ├── login.html          ← Connexion utilisateur
 ├── register.html       ← Inscription
-├── dashboard.html      ← Espace utilisateur (créer/éditer/supprimer ses tutos, visibilité privé/public)
+├── dashboard.html      ← Espace utilisateur (créer/éditer/supprimer ses tutos)
 ├── admin.html          ← Panel admin (auth SHA-256)
 ├── tuto.html           ← Visionneuse d'un tutoriel
 ├── category.html       ← Parcourir par catégorie
 ├── contribute.html     ← Formulaire de contribution public
-├── legal.html          ← Mentions légales
 ├── css/
-│   ├── variables.css   ← Design tokens (couleurs, fonts, espacements, dark mode html.dark)
-│   ├── base.css        ← Reset + composants réutilisables
+│   ├── variables.css   ← Design tokens (couleurs, fonts, espacements)
+│   ├── base.css        ← Reset + composants réutilisables (boutons, cards, forms)
 │   ├── nav.css         ← Barre de navigation
-│   └── pages.css       ← Styles spécifiques par page (+ .tip-box pour tutos enrichis)
+│   └── pages.css       ← Styles spécifiques par page
 ├── js/
 │   ├── auth.js         ← Auth SHA-256 (utilisateurs + admin)
-│   ├── data.js         ← Gestion tutoriels (localStorage + JSON, champ published)
-│   └── nav.js          ← Navigation, dark mode no-flash, langue, toasts
+│   ├── data.js         ← Gestion tutoriels (localStorage + JSON)
+│   └── nav.js          ← Navigation, dark mode, langue, toasts
 ├── data/
-│   └── tutorials.json  ← 20 tutoriels enrichis avec étapes détaillées et tip-box
+│   └── tutorials.json  ← Les tutoriels de base (20+ inclus)
 ├── assets/
 │   └── favicon.svg
 └── .github/workflows/
@@ -52,41 +38,54 @@ optitools/
 
 ## 🔐 Authentification
 
-### Utilisateurs publics
-- Mot de passe hashé **SHA-256** via Web Crypto API
+### Utilisateurs publics (register/login)
+- Mot de passe hashé en **SHA-256** via Web Crypto API (même système que about-me)
 - Session signée stockée en **localStorage** (7 jours)
-- `tf_users` · `tf_session`
+- Inscription/connexion sur `register.html` / `login.html`
 
 ### Admin
 - Identifiant : `admin`
 - Mot de passe par défaut : `TutoAdmin2026!`
-- Hash SHA-256 dans `js/auth.js` → `ADMIN_PASS_HASH`
-- Session en **sessionStorage**
+- Hash SHA-256 configuré dans `js/auth.js` → `ADMIN_PASS_HASH`
+- Session admin en **sessionStorage** (disparaît à la fermeture)
 
 **Changer le mot de passe admin :**
-1. https://emn178.github.io/online-tools/sha256.html → générer le hash
-2. Remplacer `ADMIN_PASS_HASH` dans `js/auth.js`
+1. Aller sur https://emn178.github.io/online-tools/sha256.html
+2. Taper le nouveau mot de passe → copier le hash
+3. Remplacer `ADMIN_PASS_HASH` dans `js/auth.js`
 
 ---
 
-## 📝 Visibilité des tutoriels
+## ✏️ Ajouter des tutoriels
 
-Les tutoriels créés via le dashboard peuvent être :
-- 🔒 **Privé** — visible uniquement par le créateur (défaut)
-- 🌍 **Public** — visible par tous les visiteurs
+**Via l'interface web (recommandé) :**
+- Connectez-vous sur votre compte → Dashboard → Créer un tuto
+- Ou directement sur `contribute.html` (nécessite d'être connecté)
 
-Le champ `published: true/false` dans `data.js` contrôle cela.
-
----
-
-## 🐛 Bugs corrigés
-
-- ✅ **Dark mode flash** — `html.dark` appliqué avant le rendu via snippet `<head>` + IIFE dans `nav.js`
-- ✅ **Boutons de langue** — `data-lang-bound` pour éviter le double-binding des listeners
-- ✅ **Tutoriels** — contenu enrichi avec étapes détaillées, `.tip-box`, listes de matériel
+**Via le fichier JSON (tutoriels de base) :**
+- Éditez `data/tutorials.json`
+- Respectez la structure existante
+- Push sur GitHub → déploiement automatique
 
 ---
 
 ## 🚀 Déploiement GitHub Pages
 
-Push sur `main` → GitHub Actions se déclenche → site live automatiquement.
+1. Push tous les fichiers dans le repo `optitools` (branche `main`)
+2. GitHub Actions se déclenche automatiquement
+3. Le site est disponible sur `https://djangogo33.github.io/optitools`
+
+Le workflow `.github/workflows/deploy.yml` est déjà configuré.
+
+---
+
+## 🔧 Personnalisation
+
+### Ajouter une catégorie
+1. `js/nav.js` → objet `i18n` → ajouter `cat_nouvcat`
+2. `category.html` → objet `CAT_META` → ajouter la métadonnée
+3. `index.html` → section catégories → ajouter la card
+4. `js/data.js` → `create()` → ajouter dans la liste des options
+
+### Modifier les couleurs
+Tout est dans `css/variables.css` — changez `--primary` et `--accent`.
