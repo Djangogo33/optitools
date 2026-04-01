@@ -34,14 +34,19 @@ const TutoData = (() => {
   const setMods    = d => localStorage.setItem(KEYS.MODS,    JSON.stringify(d));
   const setDeleted = d => localStorage.setItem(KEYS.DELETED, JSON.stringify(d));
 
-  /* ── Récupérer tous les tutoriels ── */
+  /* ── Récupérer tous les tutoriels PUBLICS (custom publiés + base) ── */
   async function getAll() {
+    const all = await getAllForAdmin();
+    return all.filter(t => t.published !== false);
+  }
+
+  /* ── Récupérer TOUS les tutoriels y compris brouillons (admin uniquement) ── */
+  async function getAllForAdmin() {
     const base    = await loadBase();
     const custom  = getCustom();
     const mods    = getMods();
     const deleted = getDeleted();
 
-    /* Appliquer les modifs admin + filtrer les supprimés */
     const baseFinal = base
       .filter(t => !deleted.includes(String(t.id)))
       .map(t => mods[t.id] ? { ...t, ...mods[t.id] } : t);
@@ -72,13 +77,13 @@ const TutoData = (() => {
       content    : data.content?.trim()     || '',
       image      : data.image?.trim()       || '',
       emoji      : data.emoji               || '📚',
-      tags       : data.tags               || [],
+      tags       : data.tags                || [],
       authorId   : author.id,
       authorName : author.username,
       createdAt  : new Date().toISOString(),
       updatedAt  : new Date().toISOString(),
       views      : 0,
-      published  : true,
+      published  : data.published !== undefined ? !!data.published : true,
     };
     const custom = getCustom();
     custom.unshift(tuto);
@@ -100,8 +105,8 @@ const TutoData = (() => {
     }
 
     /* Tutoriel de base — stocker la modif */
-    const mods   = getMods();
-    mods[id]     = { ...mods[id], ...data };
+    const mods = getMods();
+    mods[id]   = { ...mods[id], ...data };
     setMods(mods);
     return { id, ...data };
   }
@@ -154,10 +159,13 @@ const TutoData = (() => {
     return res;
   }
 
+  /* ── Invalider le cache (admin : après modif d'un tuto de base) ── */
+  function _invalidateCache() { _base = null; }
+
   return {
-    getAll, getById, getUserTutos,
+    getAll, getAllForAdmin, getById, getUserTutos,
     create, update, remove, addView, filter,
-    loadBase,
+    loadBase, _invalidateCache,
   };
 
 })();
