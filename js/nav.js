@@ -33,12 +33,9 @@ function getLang() { return localStorage.getItem('tf_lang') || 'fr'; }
 function setLang(l) {
   localStorage.setItem('tf_lang', l);
   applyLang();
-  /* Re-render dynamic content if present */
-  if (typeof window._reRenderOnLang === 'function') window._reRenderOnLang();
 }
 function t(key) { return i18n[getLang()]?.[key] || i18n.fr[key] || key; }
 window.t = t;
-window.getLang = getLang;
 
 function applyLang() {
   const lang = getLang();
@@ -56,8 +53,7 @@ function applyLang() {
 window.applyLang = applyLang;
 
 /* ── Dark mode ── */
-/* Appliquer immédiatement (script inline dans <head> suffirait,
-   mais on le fait ici aussi pour les pages qui chargent ce script tôt) */
+/* Appliquer immédiatement pour éviter le flash blanc */
 (function () {
   if (localStorage.getItem('tf_dark') === 'true') {
     document.documentElement.classList.add('dark');
@@ -243,13 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
   markActiveLink();
   initUserNav();
 
-  /* Lang buttons — évite le double-binding avec data-lang-bound */
+  /* Lang buttons — évite le double-binding */
   document.querySelectorAll('.lang-btn').forEach(b => {
     if (b.dataset.langBound) return;
     b.dataset.langBound = '1';
     b.addEventListener('click', () => setLang(b.dataset.lang));
   });
-  /* Dark toggle */
+  /* Dark toggle — évite le double-binding */
   document.querySelectorAll('.dark-toggle').forEach(b => {
     if (b.dataset.darkBound) return;
     b.dataset.darkBound = '1';
