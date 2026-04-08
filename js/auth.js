@@ -15,8 +15,8 @@ const Auth = (() => {
   /* === Config admin === */
   const ADMIN_USER      = 'admin';
   /* SHA-256 de "TutoAdmin2026!" — À CHANGER */
-  const ADMIN_PASS_HASH = '3317aa538c37cc0d073839ea8d98438e78c5eb32e1119b5e4e22ff0992bc91af';
-  const TOKEN_SECRET    = 'vive_les_vacances';
+  const ADMIN_PASS_HASH = '10125b435f7cbddab3d6f537f13a4bc62e65e53c844857047698d44c8e2bad46';
+  const TOKEN_SECRET    = 'tutofacile-admin-sel-2026-perso';
   /* =================== */
 
   const STORAGE = {
