@@ -1,7 +1,7 @@
 # 🎓 TutoFacile — Plateforme de tutoriels gratuits
 
-**Site :** https://optitools.netlify.app  
-**Admin :** https://optitools.netlify.app/admin.html  
+**Site :** https://djangogo33.github.io/optitools  
+**Admin :** https://djangogo33.github.io/optitools/admin.html  
 **Repo :** https://github.com/Djangogo33/optitools  
 **Créateur :** [Djangogo33](https://djangogo33.github.io/about-me)
 
